@@ -2,7 +2,13 @@
 
 An end-to-end MLOps project for **Visit with Us** that predicts whether a customer will purchase a Wellness Tourism Package. It follows the supplied learner template and examples: dataset registration, reproducible preparation, model tuning with MLflow tracking, a Streamlit prediction app, and a GitHub Actions pipeline.
 
-The local project includes an executed notebook and HTML submission. **This project has not been published to GitHub or deployed to a public app.** Actual repository, workflow-run, and deployment links and screenshots must be added after publication; none are fabricated.
+The project is published on GitHub, and its four-job workflow completed successfully on **November 24, 2026 at 9:07 a.m. America/Chicago**. The Streamlit Community Cloud app was verified in an anonymous browser session and returned a prediction without requiring sign-in:
+
+- [Public GitHub repository](https://github.com/dassubhojit-web/tourism-package-prediction)
+- [Successful GitHub Actions run #1](https://github.com/dassubhojit-web/tourism-package-prediction/actions/runs/45421135704)
+- [Streamlit prediction app](https://tourism-package-prediction-ge2zhlrmfksupcejr6skkp.streamlit.app/)
+
+The executed notebook and HTML report preserve the original local training results and identify the separately trained GitHub release used by the deployed app. Publication evidence belongs in the notebook's output-evaluation section. Updated local report files and screenshots must be committed and pushed when ready for publication.
 
 ## Project layout
 
@@ -19,6 +25,7 @@ Use this **Tourism Package Prediction directory as the GitHub repository root**.
 ├── Tourism_Package_Prediction_Completed.ipynb
 ├── Tourism_Package_Prediction_Completed.html
 ├── tourism.csv                         # Original supplied dataset
+├── evidence/                           # Genuine repository, workflow, and public-app captures
 ├── tests/
 └── tourism_project/
     ├── requirements.txt
@@ -61,26 +68,32 @@ Model selection compares 20 hyperparameter configurations: four Decision Trees, 
 
 The saved model payload contains the complete fitted preprocessing/model pipeline, the decision threshold, and the expected feature columns. The app builds a dataframe with this same schema and uses the stored threshold. A purchase score is a model estimate for prioritizing outreach; the historical dataset does not establish causal marketing impact or guarantee future conversion rates.
 
-## Local evaluation results
+## Evaluation results and release provenance
 
-The selected Random Forest achieved training cross-validation average precision **0.6470**. At the training-selected threshold **0.185**, the held-out test results were:
+Both the original local execution and the GitHub Actions execution selected Random Forest, with the training-selected threshold **0.185**. They are distinct trained artifacts; the notebook's original local outputs are retained and labeled separately from the release serving the public app.
 
-| Measure | Test result |
-| --- | ---: |
-| Average precision | 0.7958 |
-| ROC AUC | 0.9302 |
-| Purchase recall | 0.9216 |
-| Purchase precision | 0.5486 |
-| Precision among the highest-scored 20% | 0.7215 |
-| Lift among the highest-scored 20% | 3.711× |
+| Measure | Original local execution | GitHub-trained deployed release |
+| --- | ---: | ---: |
+| Training cross-validation average precision | 0.6470 | 0.6482 |
+| Test average precision | 0.7958 | 0.8009 |
+| Test ROC AUC | 0.9302 | 0.9302 |
+| Test purchase recall | 0.9216 | 0.9281 |
+| Test purchase precision | 0.5486 | 0.5680 |
+| Test F1 | 0.6878 | 0.7047 |
+| Test F2 | 0.8113 | 0.8237 |
+| Test accuracy | 0.8374 | 0.8488 |
+| Precision among the highest-scored 20% | 0.7215 | 0.7278 |
+| Lift among the highest-scored 20% | 3.711× | 3.744× |
 
-The highest-scored 20% corresponds to 158 of the 787 test customers. These ranking results describe the historical holdout; the threshold-based predictions prioritize recall and consequently include false positives. Detailed metrics, the confusion matrix, tuning results, and predictions are saved in `tourism_project/reports/`.
+The deployed release results are recorded in the repository's [metrics.json](https://github.com/dassubhojit-web/tourism-package-prediction/blob/main/tourism_project/reports/metrics.json), with MLflow parent run `9c74a6d5940f4b918cff3a871e5898a7`. The GitHub runner used Python 3.12.16 with scikit-learn 1.6.1, pandas 2.2.3, NumPy 2.2.6, and joblib 1.5.1. At the saved threshold, its holdout confusion matrix is `[[526, 108], [11, 142]]`: 142 buyers identified, 11 buyers missed, and 108 nonbuyers selected for outreach.
+
+The highest-scored 20% corresponds to 158 of the 787 test customers. These ranking results describe the historical holdout; the threshold-based predictions prioritize recall and consequently include false positives. Detailed metrics, the confusion matrix, tuning results, and predictions are saved in `tourism_project/reports/` for the corresponding trained release. Synchronize with the workflow's model-publication commit before inspecting the deployed release locally.
 
 The historical `ProdTaken` label records package uptake; it does not confirm a future purchase of this newly introduced Wellness Tourism Package. Production use requires temporal validation, drift monitoring, fairness assessment, and probability-calibration checks. In this dataset, `Designation` perfectly maps to `ProductPitched`; confirm that designation is independently known before outreach and was not assigned during sales segmentation before relying on it operationally.
 
 ## Run locally
 
-Use **Python 3.12** for both training and deployment. From this directory:
+Use **Python 3.12** for both training and deployment. The following commands run the full training workflow and create a new local model and reports. Use a separate working copy when preserving the exact GitHub-trained serving artifact. From that copy's project directory:
 
 ```bash
 python3.12 -m venv .venv
@@ -111,15 +124,15 @@ Open `http://127.0.0.1:5000`. Installing the full UI package is optional; the au
 
 Open `Tourism_Package_Prediction_Completed.ipynb` for the worked analysis, source code, pipeline execution, results, and observations. `Tourism_Package_Prediction_Completed.html` is its self-contained exported submission. The original learner template is unchanged.
 
-To rerun and export the completed notebook in your local environment:
+To refresh the final submission, run only its report/evidence cells in Jupyter, save the notebook with the original training outputs retained, and export it with embedded images:
 
 ```bash
-python -m ipykernel install --user --name tourism-mlops --display-name "Python (Tourism MLOps)"
-jupyter nbconvert --to notebook --execute Tourism_Package_Prediction_Completed.ipynb --inplace --ExecutePreprocessor.kernel_name=tourism-mlops --ExecutePreprocessor.timeout=1800
-jupyter nbconvert --to html Tourism_Package_Prediction_Completed.ipynb
+jupyter nbconvert --to html --embed-images Tourism_Package_Prediction_Completed.ipynb
 ```
 
-After adding genuine publication evidence to the notebook, execute or refresh the relevant cells and export the HTML again. Submit that updated HTML file, as required by the assignment.
+The report-only update preserves the local execution outputs and loads the deployed release metrics separately. Run `python tools/update_publication_evidence.py` with the `tourism-mlops` Jupyter kernel installed to refresh those evidence and conclusion cells without training. Executing the full notebook reruns training and overwrites its local model/report paths. `tools/build_notebook.py` creates the starting notebook from source; it does not merge manually added publication evidence. Use the saved completed notebook for the final evidence update and HTML export. Submit the updated HTML file, as required by the assignment.
+
+From a fresh clone, first run `python -m tourism_project.model_building.prep` to recreate the ignored splits used by verification; this does not retrain or replace the serving model. Register the notebook kernel with `python -m ipykernel install --user --name tourism-mlops --display-name "Python (Tourism MLOps)"` if needed.
 
 ## GitHub Actions
 
@@ -134,11 +147,13 @@ The first three jobs have read-only repository tokens, including on pull request
 
 For a new repository, upload this directory including its hidden `.github` directory. Choose `main` as the default branch, enable GitHub Actions, and ensure repository or organization policies permit the publication job to use its requested write permission. Protected-branch rules may require an approved alternative publication process. The workflow needs no personal access token or cloud secret.
 
-Once published, inspect the **Actions** tab and confirm all jobs completed. Download the `trained-deployment` artifact for model/reports and the `mlflow-experiments` artifact for tracking records. The workflow trains and commits the serving files; connecting the repository to Streamlit Community Cloud is a separate one-time deployment step.
+The linked run completed all four jobs successfully. In its **Actions** page, the `trained-deployment` artifact contains the tested model/reports and the `mlflow-experiments` artifact contains tracking records, subject to the configured retention periods. The workflow trains and commits the serving files; connecting the repository to Streamlit Community Cloud is a separate one-time deployment step.
 
 ## Deploy on Streamlit Community Cloud
 
 The supplied template and deployment rubric specify **Streamlit Community Cloud**. The description also contains an older Hugging Face submission reference; this implementation follows the template and Streamlit rubric.
+
+The linked public app uses this repository, branch `main`, and entrypoint `tourism_project/deployment/app.py`. To reproduce the deployment in another account:
 
 1. Publish this directory as a GitHub repository and complete a successful workflow run.
 2. Confirm `tourism_project/deployment/model.joblib` and `metadata.json` exist on `main`.
@@ -149,15 +164,17 @@ The supplied template and deployment rubric specify **Streamlit Community Cloud*
 
 After the one-time connection, new serving-model commits are picked up by the connected deployment. GitHub Actions does not create the Streamlit account or the app connection.
 
-## Evidence still required before submission
+## Publication evidence for the submission
 
-The local model, reports, notebook outputs, and application checks support local execution only. Add the following genuine evidence after publishing:
+Use the actual URLs above and the following screenshot files in the completed notebook's output-evaluation section:
 
-- GitHub repository URL and screenshot showing the complete folder structure, including `.github/workflows/pipeline.yml`.
-- A successful GitHub Actions run URL and screenshot showing the registration, preparation, training/testing, and publication jobs.
-- Public Streamlit app URL and screenshot showing an actual prediction.
+| File | Evidence |
+| --- | --- |
+| `evidence/github_structure.png` | Public repository structure, including `.github/workflows/pipeline.yml` and `tourism_project/` |
+| `evidence/workflow_success.png` | The successful remote run showing all four jobs |
+| `evidence/streamlit_prediction.png` | The public Streamlit app displaying an actual prediction |
 
-Use the completed notebook's output-evaluation section to record these. Local app screenshots may be useful previews, but do not establish public deployment.
+The original `tourism_project/reports/figures/local_app_preview.png` remains a local preview. Use the public-app capture and its canonical URL as deployment evidence. Review the completed report, then commit and push its notebook, HTML, README, and evidence files with a `[skip ci]` commit message so a documentation update does not retrain or replace the evaluated serving model.
 
 ## Implementation references
 

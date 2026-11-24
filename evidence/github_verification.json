@@ -1,0 +1,230 @@
+{
+  "repository_url": "https://github.com/dassubhojit-web/tourism-package-prediction",
+  "streamlit_app_url": "https://tourism-package-prediction-ge2zhlrmfksupcejr6skkp.streamlit.app/",
+  "workflow_run_url": "https://github.com/dassubhojit-web/tourism-package-prediction/actions/runs/45421135704",
+  "run_id": 45421135704,
+  "status": "completed",
+  "conclusion": "success",
+  "started_at_utc": "2026-11-24T15:03:57Z",
+  "completed_at_utc": "2026-11-24T15:07:30Z",
+  "training_source_sha": "62715eb35bf9746673cb0723318dd63591d5576b",
+  "published_model_commit_sha": "8a31082862dcd4c81f7ba3ad6baeede5bd1eb8fe",
+  "published_model_commit_url": "https://github.com/dassubhojit-web/tourism-package-prediction/commit/8a31082862dcd4c81f7ba3ad6baeede5bd1eb8fe",
+  "jobs": [
+    {
+      "name": "Register and validate dataset",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install dependencies",
+          "conclusion": "success"
+        },
+        {
+          "name": "Register dataset",
+          "conclusion": "success"
+        },
+        {
+          "name": "Pass registered dataset and validation summary",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "name": "Clean data and create holdout split",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install dependencies",
+          "conclusion": "success"
+        },
+        {
+          "name": "Download validated input from registration job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Prepare train and test data",
+          "conclusion": "success"
+        },
+        {
+          "name": "Pass splits and split manifest to training",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "name": "Tune, track, evaluate, and test",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install training and verification dependencies",
+          "conclusion": "success"
+        },
+        {
+          "name": "Download registered data and validation report",
+          "conclusion": "success"
+        },
+        {
+          "name": "Download prepared train and test artifact",
+          "conclusion": "success"
+        },
+        {
+          "name": "Refresh the split manifest in the report bundle",
+          "conclusion": "success"
+        },
+        {
+          "name": "Tune and evaluate model with local MLflow tracking",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify data separation and application predictions",
+          "conclusion": "success"
+        },
+        {
+          "name": "Store tested model and evaluation reports",
+          "conclusion": "success"
+        },
+        {
+          "name": "Retain MLflow experiment records",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "name": "Commit tested model to main",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Check out the exact source revision used for training",
+          "conclusion": "success"
+        },
+        {
+          "name": "Check that main still matches the training source",
+          "conclusion": "success"
+        },
+        {
+          "name": "Download the tested deployment artifact",
+          "conclusion": "success"
+        },
+        {
+          "name": "Commit model, metadata, and reports without overwriting newer work",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Check out the exact source revision used for training",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "name": "trained-deployment",
+      "id": 14936220488,
+      "size_in_bytes": 4604697,
+      "digest": "sha256:b4d50fe9e05d8f0d701154cb37bdf1ddef2f71fd519f5dd5eadac25a489f4235",
+      "expired": false
+    },
+    {
+      "name": "data-splits",
+      "id": 14934235964,
+      "size_in_bytes": 40679,
+      "digest": "sha256:832601f01d5d66d0d90313fb1aedc5fec2b381f8a853c6a4b617cbb9721fa02c",
+      "expired": false
+    },
+    {
+      "name": "mlflow-experiments",
+      "id": 14933693803,
+      "size_in_bytes": 5016823,
+      "digest": "sha256:c21c064ba722116c2d26807dca03429ce15d11cd1bbe9154f1653957b5b57931",
+      "expired": false
+    },
+    {
+      "name": "registered-data",
+      "id": 14933444495,
+      "size_in_bytes": 79297,
+      "digest": "sha256:2ed353b50b2de99c158a73a91e995e056f6e3528f80da3e0652b7efbb5debbd4",
+      "expired": false
+    }
+  ],
+  "verification_method": "GitHub connector read-only repository, run jobs, artifacts and commits API responses"
+}

@@ -1,0 +1,158 @@
+{
+  "model_name": "Random Forest",
+  "threshold": 0.185,
+  "threshold_selection": "maximum F2 on training out-of-fold predictions; no test tuning",
+  "selection_metric": "3-fold training average precision",
+  "best_cv_average_precision": 0.6482459016205226,
+  "best_params": {
+    "model__max_depth": null,
+    "model__max_features": "sqrt",
+    "model__min_samples_leaf": 1
+  },
+  "feature_columns": [
+    "Age",
+    "CityTier",
+    "Occupation",
+    "Gender",
+    "NumberOfPersonVisiting",
+    "PreferredPropertyStar",
+    "MaritalStatus",
+    "NumberOfTrips",
+    "Passport",
+    "OwnCar",
+    "NumberOfChildrenVisiting",
+    "Designation",
+    "MonthlyIncome"
+  ],
+  "train_rows": 3147,
+  "test_rows": 787,
+  "train_metrics": {
+    "accuracy": 0.9780743565300286,
+    "balanced_accuracy": 0.9863851617995265,
+    "precision": 0.8988269794721407,
+    "recall": 1.0,
+    "f1": 0.9467181467181467,
+    "f2": 0.9779834077855776,
+    "roc_auc": 1.0,
+    "average_precision": 1.0000000000000002,
+    "purchase_rate": 0.1947886876390213,
+    "precision_at_top_20_percent": 0.973015873015873,
+    "lift_at_top_20_percent": 4.995238095238095,
+    "top_20_percent_customers": 630,
+    "confusion_matrix": [
+      [
+        2465,
+        69
+      ],
+      [
+        0,
+        613
+      ]
+    ]
+  },
+  "training_oof_metrics": {
+    "accuracy": 0.7877343501747697,
+    "balanced_accuracy": 0.8069765061396653,
+    "precision": 0.47460757156048017,
+    "recall": 0.8384991843393148,
+    "f1": 0.6061320754716981,
+    "f2": 0.727015558698727,
+    "roc_auc": 0.8744790265118693,
+    "average_precision": 0.646206620109754,
+    "purchase_rate": 0.1947886876390213,
+    "precision_at_top_20_percent": 0.6015873015873016,
+    "lift_at_top_20_percent": 3.0884098500737975,
+    "top_20_percent_customers": 630,
+    "confusion_matrix": [
+      [
+        1965,
+        569
+      ],
+      [
+        99,
+        514
+      ]
+    ]
+  },
+  "test_metrics": {
+    "accuracy": 0.8487928843710292,
+    "balanced_accuracy": 0.8788787860044123,
+    "precision": 0.568,
+    "recall": 0.9281045751633987,
+    "f1": 0.7047146401985112,
+    "f2": 0.8236658932714617,
+    "roc_auc": 0.9301766973876828,
+    "average_precision": 0.800889024181197,
+    "purchase_rate": 0.19440914866581957,
+    "precision_at_top_20_percent": 0.7278481012658228,
+    "lift_at_top_20_percent": 3.7438984032431537,
+    "top_20_percent_customers": 158,
+    "confusion_matrix": [
+      [
+        526,
+        108
+      ],
+      [
+        11,
+        142
+      ]
+    ]
+  },
+  "test_metrics_at_0_5": {
+    "accuracy": 0.8869123252858958,
+    "balanced_accuracy": 0.7364229603513329,
+    "precision": 0.872093023255814,
+    "recall": 0.49019607843137253,
+    "f1": 0.6276150627615062,
+    "f2": 0.5372492836676218,
+    "roc_auc": 0.9301766973876828,
+    "average_precision": 0.800889024181197,
+    "purchase_rate": 0.19440914866581957,
+    "precision_at_top_20_percent": 0.7278481012658228,
+    "lift_at_top_20_percent": 3.7438984032431537,
+    "top_20_percent_customers": 158,
+    "confusion_matrix": [
+      [
+        623,
+        11
+      ],
+      [
+        78,
+        75
+      ]
+    ]
+  },
+  "baseline_test_metrics": {
+    "accuracy": 0.8055908513341804,
+    "balanced_accuracy": 0.5,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "f2": 0.0,
+    "roc_auc": 0.5,
+    "average_precision": 0.19440914866581957,
+    "purchase_rate": 0.19440914866581957,
+    "precision_at_top_20_percent": 0.16455696202531644,
+    "lift_at_top_20_percent": 0.8464465955158434,
+    "top_20_percent_customers": 158,
+    "confusion_matrix": [
+      [
+        634,
+        0
+      ],
+      [
+        153,
+        0
+      ]
+    ]
+  },
+  "raw_sha256": "3f891d5fbaa3a38a4e74d4cc08be7ce6261f9c193c71535508deec9617dca4da",
+  "mlflow_run_id": "9c74a6d5940f4b918cff3a871e5898a7",
+  "versions": {
+    "python": "3.12.16",
+    "sklearn": "1.6.1",
+    "pandas": "2.2.3",
+    "numpy": "2.2.6",
+    "joblib": "1.5.1"
+  }
+}
