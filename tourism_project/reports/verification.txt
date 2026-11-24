@@ -1,2 +1,30 @@
 ......................                                                   [100%]
-22 passed, 14 warnings in 2.48s
+=============================== warnings summary ===============================
+../../../../../opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:64
+  /opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:64: PyparsingDeprecationWarning: 'oneOf' deprecated - use 'one_of'
+    prop = Group((name + Suppress("=") + comma_separated(value)) | oneOf(_CONSTANTS))
+
+../../../../../opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:85
+../../../../../opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:85
+../../../../../opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:85
+../../../../../opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:85
+../../../../../opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:85
+../../../../../opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:85
+  /opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:85: PyparsingDeprecationWarning: 'parseString' deprecated - use 'parse_string'
+    parse = parser.parseString(pattern)
+
+../../../../../opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:89
+../../../../../opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:89
+../../../../../opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:89
+../../../../../opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:89
+../../../../../opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:89
+../../../../../opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:89
+  /opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:89: PyparsingDeprecationWarning: 'resetCache' deprecated - use 'reset_cache'
+    parser.resetCache()
+
+../../../../../opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/matplotlib/_mathtext.py:45
+  /opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/matplotlib/_mathtext.py:45: PyparsingDeprecationWarning: 'enablePackrat' deprecated - use 'enable_packrat'
+    ParserElement.enablePackrat()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+22 passed, 14 warnings in 3.35s
