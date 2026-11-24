@@ -1,0 +1,7 @@
+-r tourism_project/requirements.txt
+-r tourism_project/deployment/requirements.txt
+nbformat==5.10.4
+nbconvert==7.16.6
+ipykernel==6.29.5
+pytest==8.3.5
+PyYAML==6.0.2

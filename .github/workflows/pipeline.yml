@@ -1,0 +1,196 @@
+name: Tourism Package Prediction MLOps
+
+"on":
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+# All ML jobs, including same-repository pull requests, use read-only tokens.
+# Only the guarded publication job may update the repository.
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  PYTHONHASHSEED: "42"
+  MPLBACKEND: Agg
+
+jobs:
+  register-dataset:
+    name: Register and validate dataset
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: tourism_project/requirements.txt
+      - name: Install dependencies
+        run: python -m pip install -r tourism_project/requirements.txt
+      - name: Register dataset
+        run: python -m tourism_project.model_building.data_register
+      - name: Pass registered dataset and validation summary
+        uses: actions/upload-artifact@v4
+        with:
+          name: registered-data
+          path: |
+            tourism_project/data/tourism.csv
+            tourism_project/reports/data_summary.json
+          if-no-files-found: error
+          retention-days: 14
+
+  data-preparation:
+    name: Clean data and create holdout split
+    needs: register-dataset
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: tourism_project/requirements.txt
+      - name: Install dependencies
+        run: python -m pip install -r tourism_project/requirements.txt
+      - name: Download validated input from registration job
+        uses: actions/download-artifact@v4
+        with:
+          name: registered-data
+          path: tourism_project
+      - name: Prepare train and test data
+        run: python -m tourism_project.model_building.prep
+      - name: Pass splits and split manifest to training
+        uses: actions/upload-artifact@v4
+        with:
+          name: data-splits
+          path: tourism_project/data/processed/
+          if-no-files-found: error
+          retention-days: 14
+
+  model-training:
+    name: Tune, track, evaluate, and test
+    needs: data-preparation
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: |
+            tourism_project/requirements.txt
+            tourism_project/deployment/requirements.txt
+            requirements-dev.txt
+      - name: Install training and verification dependencies
+        run: python -m pip install -r requirements-dev.txt
+      - name: Download registered data and validation report
+        uses: actions/download-artifact@v4
+        with:
+          name: registered-data
+          path: tourism_project
+      - name: Download prepared train and test artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: data-splits
+          path: tourism_project/data/processed
+      - name: Refresh the split manifest in the report bundle
+        run: cp tourism_project/data/processed/split_manifest.json tourism_project/reports/split_manifest.json
+      - name: Tune and evaluate model with local MLflow tracking
+        run: python -m tourism_project.model_building.train
+      - name: Verify data separation and application predictions
+        shell: bash
+        run: python -m pytest -q | tee tourism_project/reports/verification.txt
+      - name: Store tested model and evaluation reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: trained-deployment
+          path: |
+            tourism_project/deployment/model.joblib
+            tourism_project/deployment/metadata.json
+            tourism_project/reports/
+          if-no-files-found: error
+          retention-days: 30
+      - name: Retain MLflow experiment records
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mlflow-experiments
+          path: tourism_project/mlruns/
+          if-no-files-found: warn
+          retention-days: 14
+
+  publish-model:
+    name: Commit tested model to main
+    needs: model-training
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    env:
+      EXPECTED_SOURCE_SHA: ${{ github.sha }}
+    steps:
+      - name: Check out the exact source revision used for training
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+      - name: Check that main still matches the training source
+        id: fresh
+        shell: bash
+        run: |
+          git fetch origin main
+          if [ "$(git rev-parse origin/main)" != "$EXPECTED_SOURCE_SHA" ]; then
+            echo "::notice::Main advanced during training. Tested artifacts remain available; publication skipped."
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git checkout -B main "$EXPECTED_SOURCE_SHA"
+          echo "publish=true" >> "$GITHUB_OUTPUT"
+      - name: Download the tested deployment artifact
+        if: steps.fresh.outputs.publish == 'true'
+        uses: actions/download-artifact@v4
+        with:
+          name: trained-deployment
+          path: tourism_project
+      - name: Commit model, metadata, and reports without overwriting newer work
+        if: steps.fresh.outputs.publish == 'true'
+        shell: bash
+        run: |
+          git fetch origin main
+          if [ "$(git rev-parse origin/main)" != "$EXPECTED_SOURCE_SHA" ]; then
+            echo "::notice::Main advanced before publication. Skipping this older model."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add tourism_project/deployment/model.joblib tourism_project/deployment/metadata.json tourism_project/reports/
+          if git diff --cached --quiet; then
+            echo "The committed model and reports already match these artifacts."
+            exit 0
+          fi
+          git commit -m "Update trained tourism model and evaluation reports [skip ci]"
+          if ! git push origin HEAD:refs/heads/main; then
+            git fetch origin main
+            if [ "$(git rev-parse origin/main)" != "$EXPECTED_SOURCE_SHA" ]; then
+              echo "::notice::Main changed during publication. No force push was attempted; artifacts are retained."
+              exit 0
+            fi
+            echo "::error::Model publication failed. Check repository Actions permissions and branch rules."
+            exit 1
+          fi

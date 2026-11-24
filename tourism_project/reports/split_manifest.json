@@ -1,0 +1,41 @@
+{
+  "raw_sha256": "3f891d5fbaa3a38a4e74d4cc08be7ce6261f9c193c71535508deec9617dca4da",
+  "random_state": 42,
+  "test_size": 0.2,
+  "raw_rows": 4128,
+  "unique_rows": 3934,
+  "duplicates_removed": 194,
+  "train_rows": 3147,
+  "test_rows": 787,
+  "train_purchase_rate": 0.1947886876390213,
+  "test_purchase_rate": 0.19440914866581957,
+  "train_test_profile_overlap": 0,
+  "feature_columns": [
+    "Age",
+    "CityTier",
+    "Occupation",
+    "Gender",
+    "NumberOfPersonVisiting",
+    "PreferredPropertyStar",
+    "MaritalStatus",
+    "NumberOfTrips",
+    "Passport",
+    "OwnCar",
+    "NumberOfChildrenVisiting",
+    "Designation",
+    "MonthlyIncome"
+  ],
+  "excluded_before_contact": [
+    "TypeofContact",
+    "DurationOfPitch",
+    "NumberOfFollowups",
+    "ProductPitched",
+    "PitchSatisfactionScore"
+  ],
+  "split_hashes": {
+    "Xtrain.csv": "0a55d26d4dadbd447e223254566e6fc40ece7eb2447d8b5fa7badaf35b48f091",
+    "Xtest.csv": "4308fad5d679bbe66e4f78b7bcaef044ac34154c32764a99301b6ee5faf2ac06",
+    "ytrain.csv": "27ab7dacbea676a5e642522a8f918235e9c02750289d0c320d2b9b36da37c4ad",
+    "ytest.csv": "0e6765061ddd9f3a51cc28db02a31c44d7b466dcf537dbfbf8f4c4153299f94a"
+  }
+}

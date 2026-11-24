@@ -1,0 +1,23 @@
+# Local environments, caches, and operating-system metadata
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+.DS_Store
+
+# Local tracking stores and intermediate splits are workflow artifacts.
+tourism_project/mlruns/
+tourism_project/data/processed/
+*.db
+*.db-shm
+*.db-wal
+
+# Credentials belong in environment variables or platform secret stores.
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+
+# Model and reports are deliberately tracked for the deployment app.

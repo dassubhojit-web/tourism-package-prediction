@@ -1,0 +1,6 @@
+# Serving only; must match the model-training environment.
+numpy==2.2.6
+pandas==2.2.3
+scikit-learn==1.6.1
+joblib==1.5.1
+streamlit==1.45.1
