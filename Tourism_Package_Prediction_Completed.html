@@ -11645,52 +11645,6 @@ weighted avg       0.90      0.85      0.86       787
 <li><strong>Fairness and drift:</strong> I would audit outreach coverage and outcomes across demographic groups, review whether sensitive predictors are appropriate, and monitor missingness, unseen categories, and feature distributions. I would use a new validation cohort for subsequent model changes.</li>
 <li><strong>Operations:</strong> I would retain dataset hashes, source revisions, model versions, and experiment records, promote only tested models, and keep previous model commits available for rollback. I would retrain when new validated outcomes justify an update.</li>
 </ul>
-<h3 id="Rubric-coverage">Rubric coverage<a class="anchor-link" href="#Rubric-coverage">¶</a></h3><table>
-<thead>
-<tr>
-<th>Criterion</th>
-<th>Included evidence</th>
-<th>Current status</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Registration · 3</td>
-<td>Master/data folder, schema script, executed summary</td>
-<td>Executed locally and in GitHub Actions</td>
-</tr>
-<tr>
-<td>Preparation · 7</td>
-<td>Cleaning, four CSV splits, checksum manifest, artifact steps</td>
-<td>Executed locally and in GitHub Actions; artifact handoff verified</td>
-</tr>
-<tr>
-<td>Modeling/tracking · 13</td>
-<td>20 tracked candidates, complete tuned pipelines, metrics, saved winner</td>
-<td>Executed locally and in GitHub Actions</td>
-</tr>
-<tr>
-<td>Deployment · 11</td>
-<td><code>app.py</code>, input dataframe, fitted model, serving dependencies, app tests</td>
-<td>Public Streamlit app verified; prediction screenshot included</td>
-</tr>
-<tr>
-<td>GitHub Actions · 16</td>
-<td>Complete root YAML, artifact jobs, guarded commit to main</td>
-<td>Four remote jobs succeeded; model automatically committed to main</td>
-</tr>
-<tr>
-<td>Output evaluation · 4</td>
-<td>Genuine repository/workflow/public-app URLs and screenshots</td>
-<td>Actual public links and genuine browser screenshots included</td>
-</tr>
-<tr>
-<td>Notebook quality · 6</td>
-<td>Sequential executed outputs, observations, source, no error outputs, HTML</td>
-<td>Executed and exported</td>
-</tr>
-</tbody>
-</table>
 </div>
 </div>
 </div>

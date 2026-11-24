@@ -178,17 +178,6 @@ def main():
         ]
         display(Markdown("\\n\\n".join(lines)))
     """).strip()
-    last = notebook.cells[49].source
-    replacements = {
-        "Executed locally; remote transfer pending": "Executed locally and in GitHub Actions; artifact handoff verified",
-        "Local app verified; public hosting pending": "Public Streamlit app verified; prediction screenshot included",
-        "Prepared; remote execution pending": "Four remote jobs succeeded; model automatically committed to main",
-        "Pending publication": "Actual public links and genuine browser screenshots included",
-        "| Executed locally |": "| Executed locally and in GitHub Actions |",
-    }
-    for old, new in replacements.items():
-        last = last.replace(old, new)
-    notebook.cells[49].source = last
     # A separate short execution preserves all original model-building outputs.
     changed = [44, 46, 48]
     scratch = nbformat.v4.new_notebook(cells=[nbformat.v4.new_code_cell(source) for source in

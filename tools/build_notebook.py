@@ -423,18 +423,6 @@ md("""
 - **Fairness and drift:** gender, age, and income may produce unequal outreach patterns. Audit group coverage and outcome metrics with adequate sample sizes, review whether those features are appropriate, and track missingness, unseen categories, feature distributions, and realized performance. Use a new validation cohort for subsequent changes rather than repeatedly tuning on this test set.
 - **Operations:** preserve the dataset hash, source revision, model version, and MLflow records; promote only a tested model, retain previous model commits for rollback, and retrain when new validated outcomes justify it. Automation alone does not establish model quality.
 
-### Rubric coverage
-
-| Criterion | Included evidence | Current status |
-|---|---|---|
-| Registration · 3 | Master/data folder, schema script, executed summary | Executed locally |
-| Preparation · 7 | Cleaning, four CSV splits, checksum manifest, artifact steps | Executed locally; remote transfer pending |
-| Modeling/tracking · 13 | 20 tracked candidates, complete tuned pipelines, metrics, saved winner | Executed locally |
-| Deployment · 11 | `app.py`, input dataframe, fitted model, serving dependencies, app tests | Local app verified; public hosting pending |
-| GitHub Actions · 16 | Complete root YAML, artifact jobs, guarded commit to main | Prepared; remote execution pending |
-| Output evaluation · 4 | Genuine repository/workflow/public-app URLs and screenshots | Pending publication |
-| Notebook quality · 6 | Sequential executed outputs, observations, source, no error outputs, HTML | Executed and exported |
-
 """)
 
 notebook = nbf.v4.new_notebook(cells=cells)

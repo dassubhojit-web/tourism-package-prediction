@@ -228,8 +228,6 @@ def personalize_notebook(notebook):
         ]
         display(Markdown("\\n\\n".join(lines)))
     """).strip()
-    last = notebook.cells[49].source.split("\n### References")[0]
-    table = last[last.index("### Rubric coverage"):]
     notebook.cells[49].source = dedent("""
         ### My limitations and next steps
 
@@ -238,7 +236,7 @@ def personalize_notebook(notebook):
         - **Scores and decisions:** I have not calibrated the scores as purchase probabilities. I would monitor calibration, conversion, precision, recall, contact costs, revenue, and feedback delay. I would assess causal marketing impact through an experiment.
         - **Fairness and drift:** I would audit outreach coverage and outcomes across demographic groups, review whether sensitive predictors are appropriate, and monitor missingness, unseen categories, and feature distributions. I would use a new validation cohort for subsequent model changes.
         - **Operations:** I would retain dataset hashes, source revisions, model versions, and experiment records, promote only tested models, and keep previous model commits available for rollback. I would retrain when new validated outcomes justify an update.
-    """).strip() + "\n\n" + table
+    """).strip()
     notebook.metadata["authors"] = [{"name": "Subhojit Das"}]
     return notebook
 
