@@ -7517,12 +7517,12 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Tourism-Package-Prediction">Tourism Package Prediction<a class="anchor-link" href="#Tourism-Package-Prediction">¶</a></h1><h3 id="Visit-with-Us-%C2%B7-Advanced-Machine-Learning-and-MLOps">Visit with Us · Advanced Machine Learning and MLOps<a class="anchor-link" href="#Visit-with-Us-%C2%B7-Advanced-Machine-Learning-and-MLOps">¶</a></h3><p><strong>Objective:</strong> build a reproducible system to prioritize customers for a Wellness Tourism Package <strong>before a sales conversation</strong>.</p>
-<p>This notebook contains the complete project source, executed validation and preparation, tuned models with MLflow tracking, held-out evaluation, a Streamlit frontend, and a GitHub Actions workflow.</p>
-<p><strong>Published project:</strong> <a href="https://github.com/dassubhojit-web/tourism-package-prediction">GitHub repository</a> · <a href="https://github.com/dassubhojit-web/tourism-package-prediction/actions/runs/45421135704">Successful four-job workflow</a> · <a href="https://tourism-package-prediction-ge2zhlrmfksupcejr6skkp.streamlit.app/">Public Streamlit app</a></p>
-<p><strong>Final deployed release:</strong> Random Forest, threshold <strong>0.185</strong>, test average precision <strong>0.8009</strong>, ROC AUC <strong>0.9302</strong>, buyer recall <strong>92.81%</strong>, and precision <strong>56.80%</strong>. Section 9 contains the actual publication evidence, release commit, and screenshots.</p>
-<p><strong>Execution provenance:</strong> the original training cells were run sequentially in the local development environment. Their actual outputs are retained below. GitHub subsequently retrained and committed a separate model, which serves the public app. Verification, evidence, and final conclusions were refreshed after deployment without retraining or changing that published model. Sections 6–8 retain the local execution history; Section 9 compares both runs and reports the deployed release.</p>
-<p>To reproduce training, use a separate working copy: running every training cell creates a new model in the local deployment directory. To refresh only the published report, run <code>tools/update_publication_evidence.py</code> and export the saved notebook to HTML.</p>
+<h1 id="Tourism-Package-Prediction">Tourism Package Prediction<a class="anchor-link" href="#Tourism-Package-Prediction">¶</a></h1><h3 id="Visit-with-Us-%C2%B7-Advanced-Machine-Learning-and-MLOps">Visit with Us · Advanced Machine Learning and MLOps<a class="anchor-link" href="#Visit-with-Us-%C2%B7-Advanced-Machine-Learning-and-MLOps">¶</a></h3><p><strong>Prepared by:</strong> Subhojit Das</p>
+<p>My objective is to predict which customers are likely to purchase a Wellness Tourism Package <strong>before a sales conversation</strong>. I developed a complete workflow covering data validation, preparation, model tuning, experiment tracking, evaluation, deployment, and automated model updates.</p>
+<p><strong>My published project:</strong> <a href="https://github.com/dassubhojit-web/tourism-package-prediction">GitHub repository</a> · <a href="https://github.com/dassubhojit-web/tourism-package-prediction/actions/runs/45421135704">Successful GitHub Actions workflow</a> · <a href="https://tourism-package-prediction-ge2zhlrmfksupcejr6skkp.streamlit.app/">Public Streamlit app</a></p>
+<p><strong>My deployed model:</strong> Random Forest, with a decision threshold of <strong>0.185</strong>, test average precision of <strong>0.8009</strong>, ROC AUC of <strong>0.9302</strong>, buyer recall of <strong>92.81%</strong>, and precision of <strong>56.80%</strong>.</p>
+<p>I first trained and evaluated the model locally, then automated training through GitHub Actions. I retained my local execution outputs and report the GitHub-trained model separately in Section 9 because it is the model used by my public app. I refreshed my deployment evidence and final conclusions after publication without retraining the serving model.</p>
+<p>To reproduce my training, run the notebook in a separate working copy. To refresh the publication evidence while keeping the saved model, run <code>tools/update_publication_evidence.py</code> and export the notebook to HTML.</p>
 </div>
 </div>
 </div>
@@ -7533,10 +7533,10 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="1.-Business-context-and-success-criteria">1. Business context and success criteria<a class="anchor-link" href="#1.-Business-context-and-success-criteria">¶</a></h2><p>Manual targeting makes outreach inconsistent and expensive. The classifier ranks potential buyers so a limited marketing budget can reach interested customers. <code>ProdTaken=1</code> records historical package uptake; <code>0</code> records no purchase.</p>
-<p><strong>Primary model-selection metric:</strong> average precision (AP), which summarizes precision and recall across score thresholds. Most customers did not buy, so accuracy alone can reward a model that misses every buyer. Also report ROC AUC, precision, recall, F1, F2, balanced accuracy, and campaign lift.</p>
-<p>The outreach threshold maximizes <strong>F2 on training out-of-fold predictions</strong>, giving recall more weight than precision. This is an explicit provisional business preference because acquisition cost and package margin were not supplied. The untouched test set evaluates that fixed decision rule. No threshold is selected from test results.</p>
-<p>Historical package purchases do not prove future uptake of a new wellness offer or the incremental effect of contacting a customer. A future campaign pilot is needed to establish those outcomes.</p>
+<h2 id="1.-Business-context-and-success-criteria">1. Business context and success criteria<a class="anchor-link" href="#1.-Business-context-and-success-criteria">¶</a></h2><p>I developed this classifier to help Visit with Us prioritize customers for its Wellness Tourism Package. My aim is to make outreach more consistent and help a limited marketing budget reach customers with stronger purchase interest. I use <code>ProdTaken=1</code> for historical buyers and <code>ProdTaken=0</code> for nonbuyers.</p>
+<p>I selected <strong>average precision (AP)</strong> as my primary model-selection metric because most customers did not purchase a package. Accuracy alone could favor a model that predicts nonpurchase for everyone. I also evaluated ROC AUC, precision, recall, F1, F2, balanced accuracy, and campaign lift.</p>
+<p>I chose the outreach threshold by maximizing <strong>F2 on training out-of-fold predictions</strong>, giving greater weight to recall. I used this provisional objective because contact costs and package margins were unavailable. I kept the final test set out of model and threshold selection.</p>
+<p>I interpret historical purchase patterns as predictive associations. I would use a future campaign pilot to assess uptake of the new wellness offer and the incremental effect of outreach.</p>
 </div>
 </div>
 </div>
@@ -7638,7 +7638,7 @@ a.anchor-link {
 </tr>
 </tbody>
 </table>
-<p>Travel preferences, income, and designation are assumed available from an existing customer profile before the next campaign. The app therefore requires <strong>13 pre-contact fields</strong>. Confirm this assumption with the business. <code>Designation</code> perfectly maps to <code>ProductPitched</code> in this historical file: it is acceptable only if the job designation was collected independently before the sales interaction. Otherwise remove it and retrain.</p>
+<p>I assume travel preferences, income, and designation are available in an existing customer profile before outreach. I therefore use <strong>13 pre-contact fields</strong>. I found that <code>Designation</code> maps perfectly to <code>ProductPitched</code> in this dataset, so I would confirm that designation was collected independently before relying on it in a future campaign. If that assumption fails, I would remove it and retrain.</p>
 </div>
 </div>
 </div>
@@ -7649,8 +7649,8 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="3.-Environment-and-project-configuration">3. Environment and project configuration<a class="anchor-link" href="#3.-Environment-and-project-configuration">¶</a></h2><p>Training and serving use Python 3.12 with identical NumPy, pandas, scikit-learn, and joblib pins. MLflow writes to a local tracking directory; no token, ngrok tunnel, or tracking server is needed. The template and rubric specify Streamlit Community Cloud; that takes precedence over the older Hugging Face reference in the description.</p>
-<p>Run from this notebook's directory. In Colab, clone or upload the complete project, including its <code>evidence/</code> folder, and work from the repository root. Use Python 3.12 and the pinned dependencies. The report-only evidence update uses the saved GitHub release snapshots and does not rerun training. If an existing runtime has already imported different package versions, restart it after installation.</p>
+<h2 id="3.-Environment-and-project-configuration">3. Environment and project configuration<a class="anchor-link" href="#3.-Environment-and-project-configuration">¶</a></h2><p>I used Python 3.12 for training and deployment, with matching NumPy, pandas, scikit-learn, and joblib versions. I recorded my MLflow experiments in a local tracking directory and deployed my prediction app on Streamlit Community Cloud.</p>
+<p>To reproduce my completed report in Colab, clone or upload the complete project, including <code>evidence/</code>, and work from the repository root. Use the pinned dependencies and Python 3.12. Restart the runtime after installation if it has already imported different package versions. My report-only update reads the saved release snapshots without rerunning training.</p>
 </div>
 </div>
 </div>
@@ -7794,7 +7794,7 @@ Dataset is present in tourism_project/data/tourism.csv.
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Shared-schema-and-deterministic-cleanup">Shared schema and deterministic cleanup<a class="anchor-link" href="#Shared-schema-and-deterministic-cleanup">¶</a></h3><p>The schema removes identifiers and interaction fields, corrects two spelling variants, and preserves the distinct source categories <code>Single</code> and <code>Unmarried</code>. Learned imputation stays inside the training pipeline.</p>
+<h3 id="Shared-schema-and-deterministic-cleanup">Shared schema and deterministic cleanup<a class="anchor-link" href="#Shared-schema-and-deterministic-cleanup">¶</a></h3><p>I defined a shared schema, removed identifiers and interaction-derived fields, and corrected two spelling variants. I retained <code>Single</code> and <code>Unmarried</code> as separate categories because their equivalence was not confirmed. I fitted learned imputation within the training pipeline.</p>
 </div>
 </div>
 </div>
@@ -7945,7 +7945,7 @@ Dataset is present in tourism_project/data/tourism.csv.
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="4.-Data-registration-%C2%B7-rubric:-3-points">4. Data registration · rubric: 3 points<a class="anchor-link" href="#4.-Data-registration-%C2%B7-rubric:-3-points">¶</a></h2><p>Validate the repository input before any model is trained. Registration checks expected columns, unique IDs, valid labels, numeric values, and basic domains, then records a SHA-256 hash, target balance, missing values, and repeated profiles.</p>
+<h2 id="4.-Data-registration-%C2%B7-rubric:-3-points">4. Data registration · rubric: 3 points<a class="anchor-link" href="#4.-Data-registration-%C2%B7-rubric:-3-points">¶</a></h2><p>I validated the repository CSV before training. I checked the expected columns, unique customer IDs, binary target, numeric values, and basic domain rules. I also recorded the dataset hash, purchase prevalence, missing values, and repeated profiles.</p>
 </div>
 </div>
 </div>
@@ -8576,10 +8576,10 @@ Dataset is present in tourism_project/data/tourism.csv.
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Markdown</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s2">"**Observed data:** </span><span class="si">{</span><span class="n">registration</span><span class="p">[</span><span class="s1">'rows'</span><span class="p">]</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> rows and </span><span class="si">{</span><span class="n">registration</span><span class="p">[</span><span class="s1">'columns'</span><span class="p">]</span><span class="si">}</span><span class="s2"> columns; "</span>
-    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">sum</span><span class="p">(</span><span class="n">registration</span><span class="p">[</span><span class="s1">'missing_values'</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">())</span><span class="si">}</span><span class="s2"> missing cells; "</span>
+    <span class="sa">f</span><span class="s2">"**My data observations:** I reviewed </span><span class="si">{</span><span class="n">registration</span><span class="p">[</span><span class="s1">'rows'</span><span class="p">]</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> rows and </span><span class="si">{</span><span class="n">registration</span><span class="p">[</span><span class="s1">'columns'</span><span class="p">]</span><span class="si">}</span><span class="s2"> columns. "</span>
+    <span class="sa">f</span><span class="s2">"I found </span><span class="si">{</span><span class="nb">sum</span><span class="p">(</span><span class="n">registration</span><span class="p">[</span><span class="s1">'missing_values'</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">())</span><span class="si">}</span><span class="s2"> missing cells and "</span>
     <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">registration</span><span class="p">[</span><span class="s1">'target_counts'</span><span class="p">][</span><span class="s1">'1'</span><span class="p">]</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> buyers (</span><span class="si">{</span><span class="n">registration</span><span class="p">[</span><span class="s1">'purchase_rate'</span><span class="p">]</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">). "</span>
-    <span class="sa">f</span><span class="s2">"There are </span><span class="si">{</span><span class="n">registration</span><span class="p">[</span><span class="s1">'gender_spelling_corrections'</span><span class="p">]</span><span class="si">}</span><span class="s2"> occurrences of `Fe Male`, "</span>
+    <span class="sa">f</span><span class="s2">"I identified </span><span class="si">{</span><span class="n">registration</span><span class="p">[</span><span class="s1">'gender_spelling_corrections'</span><span class="p">]</span><span class="si">}</span><span class="s2"> occurrences of `Fe Male` "</span>
     <span class="sa">f</span><span class="s2">"and </span><span class="si">{</span><span class="n">registration</span><span class="p">[</span><span class="s1">'duplicate_profiles_after_normalization'</span><span class="p">]</span><span class="si">}</span><span class="s2"> repeated pre-contact profiles after normalization."</span>
 <span class="p">))</span>
 <span class="n">display</span><span class="p">(</span><span class="n">raw</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s2">"object"</span><span class="p">)</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">"distinct categories"</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">())</span>
@@ -8597,7 +8597,7 @@ Dataset is present in tourism_project/data/tourism.csv.
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-OutputArea-output" data-mime-type="text/markdown" tabindex="0">
-<p><strong>Observed data:</strong> 4,128 rows and 21 columns; 0 missing cells; 797 buyers (19.31%). There are 155 occurrences of <code>Fe Male</code>, and 194 repeated pre-contact profiles after normalization.</p>
+<p><strong>My data observations:</strong> I reviewed 4,128 rows and 21 columns. I found 0 missing cells and 797 buyers (19.31%). I identified 155 occurrences of <code>Fe Male</code> and 194 repeated pre-contact profiles after normalization.</p>
 </div>
 </div>
 <div class="jp-OutputArea-child">
@@ -8719,8 +8719,8 @@ Dataset is present in tourism_project/data/tourism.csv.
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="5.-Data-preparation-%C2%B7-rubric:-7-points">5. Data preparation · rubric: 7 points<a class="anchor-link" href="#5.-Data-preparation-%C2%B7-rubric:-7-points">¶</a></h2><p>Drop duplicate normalized profiles <strong>before</strong> the 80/20 stratified split. These records have different IDs but the same 13 available predictors and outcome, so keeping them in both sets would overstate generalization. This deduplication estimates performance on unique observed profiles; it can remove distinct people with coincidentally identical recorded attributes, an explicit limitation of the source data. Identical profiles with conflicting labels cause a clear error for review rather than arbitrary deletion.</p>
-<p>Save <code>Xtrain.csv</code>, <code>Xtest.csv</code>, <code>ytrain.csv</code>, and <code>ytest.csv</code> plus a checksum manifest. All transformations that learn statistics—imputation and one-hot encoding—are deferred until cross-validation. Keep valid income/trip extremes because no defensible correction rule was supplied. Tree models do not require scaling.</p>
+<h2 id="5.-Data-preparation-%C2%B7-rubric:-7-points">5. Data preparation · rubric: 7 points<a class="anchor-link" href="#5.-Data-preparation-%C2%B7-rubric:-7-points">¶</a></h2><p>I removed duplicate normalized profiles <strong>before</strong> creating my stratified 80/20 split. These records had different IDs but identical available predictors and outcomes, which could inflate performance if they appeared in both training and testing. I treat this as an evaluation of unique recorded profiles; different people could still share the same recorded attributes. I stop preparation for review if identical predictors have conflicting labels.</p>
+<p>I saved <code>Xtrain.csv</code>, <code>Xtest.csv</code>, <code>ytrain.csv</code>, and <code>ytest.csv</code>, together with a checksum manifest. I deferred imputation and categorical encoding until cross-validation. I retained the valid income and trip extremes because I had no defensible correction rule, and I did not scale the predictors because my candidate models were tree-based.</p>
 </div>
 </div>
 </div>
@@ -8949,7 +8949,7 @@ Dataset is present in tourism_project/data/tourism.csv.
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Exploratory-analysis-on-the-training-set">Exploratory analysis on the training set<a class="anchor-link" href="#Exploratory-analysis-on-the-training-set">¶</a></h3><p>The final test set stays out of exploratory feature analysis and model selection. Associations below describe this historical sample and are not causal effects.</p>
+<h3 id="Exploratory-analysis-on-the-training-set">Exploratory analysis on the training set<a class="anchor-link" href="#Exploratory-analysis-on-the-training-set">¶</a></h3><p>I explored the training set while keeping the final test set out of feature analysis and model selection. I interpret the associations below as historical patterns rather than causal effects.</p>
 </div>
 </div>
 </div>
@@ -9115,12 +9115,12 @@ Dataset is present in tourism_project/data/tourism.csv.
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">passport_rates</span> <span class="o">=</span> <span class="n">eda</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"Passport"</span><span class="p">)[</span><span class="n">TARGET</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 <span class="n">designation_rates</span> <span class="o">=</span> <span class="n">eda</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"Designation"</span><span class="p">)[</span><span class="n">TARGET</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">display</span><span class="p">(</span><span class="n">Markdown</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s2">"**Training observations:** passport holders purchased at </span><span class="si">{</span><span class="n">passport_rates</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nb">float</span><span class="p">(</span><span class="s1">'nan'</span><span class="p">))</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">, "</span>
-    <span class="sa">f</span><span class="s2">"compared with </span><span class="si">{</span><span class="n">passport_rates</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nb">float</span><span class="p">(</span><span class="s1">'nan'</span><span class="p">))</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2"> for customers without one. "</span>
-    <span class="sa">f</span><span class="s2">"The highest observed designation purchase rate is </span><span class="si">{</span><span class="n">designation_rates</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> "</span>
-    <span class="sa">f</span><span class="s2">"(</span><span class="si">{</span><span class="n">designation_rates</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">). Groups differ in size, so rates alone are not reliable targeting rules. "</span>
-    <span class="s2">"The low purchase prevalence motivates precision–recall evaluation and a majority-class baseline. "</span>
-    <span class="s2">"The income extremes are retained, and no imputation or clipping statistics are fitted on the full dataset."</span>
+    <span class="sa">f</span><span class="s2">"**My training observations:** I observed a purchase rate of </span><span class="si">{</span><span class="n">passport_rates</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nb">float</span><span class="p">(</span><span class="s1">'nan'</span><span class="p">))</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2"> "</span>
+    <span class="sa">f</span><span class="s2">"among passport holders, compared with </span><span class="si">{</span><span class="n">passport_rates</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nb">float</span><span class="p">(</span><span class="s1">'nan'</span><span class="p">))</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2"> among customers without one. "</span>
+    <span class="sa">f</span><span class="s2">"I found the highest designation purchase rate in </span><span class="si">{</span><span class="n">designation_rates</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> "</span>
+    <span class="sa">f</span><span class="s2">"(</span><span class="si">{</span><span class="n">designation_rates</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">). I would not use these rates alone as targeting rules because the group sizes differ. "</span>
+    <span class="s2">"I selected precision–recall evaluation and a majority-class baseline because the purchase rate is low. "</span>
+    <span class="s2">"I retained the income extremes and avoided fitting imputation or clipping statistics on the full dataset."</span>
 <span class="p">))</span>
 </pre></div>
 </div>
@@ -9134,7 +9134,7 @@ Dataset is present in tourism_project/data/tourism.csv.
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-OutputArea-output" data-mime-type="text/markdown" tabindex="0">
-<p><strong>Training observations:</strong> passport holders purchased at 37.1%, compared with 12.1% for customers without one. The highest observed designation purchase rate is Executive (29.3%). Groups differ in size, so rates alone are not reliable targeting rules. The low purchase prevalence motivates precision–recall evaluation and a majority-class baseline. The income extremes are retained, and no imputation or clipping statistics are fitted on the full dataset.</p>
+<p><strong>My training observations:</strong> I observed a purchase rate of 37.1% among passport holders, compared with 12.1% among customers without one. I found the highest designation purchase rate in Executive (29.3%). I would not use these rates alone as targeting rules because the group sizes differ. I selected precision–recall evaluation and a majority-class baseline because the purchase rate is low. I retained the income extremes and avoided fitting imputation or clipping statistics on the full dataset.</p>
 </div>
 </div>
 </div>
@@ -9146,10 +9146,10 @@ Dataset is present in tourism_project/data/tourism.csv.
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="6.-Model-training-and-registration-with-experimentation-tracking-%C2%B7-rubric:-13-points">6. Model training and registration with experimentation tracking · rubric: 13 points<a class="anchor-link" href="#6.-Model-training-and-registration-with-experimentation-tracking-%C2%B7-rubric:-13-points">¶</a></h2><p>Compare <strong>Decision Tree (4 settings), Random Forest (8), and Gradient Boosting (8)</strong> across three stratified training folds: 20 configurations and 60 validation fits, followed by refitting. The full preprocessing pipeline is inside <code>GridSearchCV</code>, so each fold fits its own imputers and categorical encoder. Unknown categorical values can be scored without refitting the encoder.</p>
-<p>Refit the best configuration by mean training-fold AP. Then generate out-of-fold training scores for that selected configuration and select the F2 threshold. These training OOF scores are used after hyperparameter selection and are <strong>not an unbiased nested-CV estimate</strong>. The final holdout supplies the independent performance assessment. A dummy model using training prevalence supplies a reference; it is not used as a candidate for deployment.</p>
-<p>MLflow records a parent run and one nested run per configuration, including the complete estimator parameters, tuned values, fold scores, mean scores, variability, selected threshold, versions, dataset hash, metrics, report artifacts, and the saved model. The joblib payload carries the fitted pipeline, feature order, and threshold together.</p>
-<p><strong>Run shown in this section:</strong> original local development execution. These recorded outputs are preserved as execution evidence. The final GitHub-trained serving release and its independently verified metrics are reported in Section 9.</p>
+<h2 id="6.-Model-training-and-registration-with-experimentation-tracking-%C2%B7-rubric:-13-points">6. Model training and registration with experimentation tracking · rubric: 13 points<a class="anchor-link" href="#6.-Model-training-and-registration-with-experimentation-tracking-%C2%B7-rubric:-13-points">¶</a></h2><p>I compared <strong>Decision Tree (4 configurations), Random Forest (8), and Gradient Boosting (8)</strong> across three stratified folds. This gave me 20 configurations and 60 validation fits before refitting. I placed preprocessing inside <code>GridSearchCV</code> so each fold fitted its own imputers and categorical encoder. I configured the encoder to handle unseen categories.</p>
+<p>I selected the configuration with the highest mean training-fold AP. I then generated out-of-fold training scores for that configuration and selected the F2 threshold. Because I reused the training folds after model selection, I treat those OOF results as selection diagnostics rather than an unbiased nested-CV estimate. I used the untouched holdout for my final assessment and a prevalence-based dummy classifier as my baseline.</p>
+<p>I logged a parent MLflow run and a nested run for each configuration, including estimator parameters, tuned values, fold metrics, variability, selected threshold, versions, dataset hash, and model artifacts. I saved the complete fitted pipeline with its feature order and decision threshold.</p>
+<p><strong>My local development run:</strong> I retain its executed outputs below. I report the separately trained GitHub release used by my public app in Section 9.</p>
 </div>
 </div>
 </div>
@@ -9507,7 +9507,7 @@ Dataset is present in tourism_project/data/tourism.csv.
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Cross-validation-comparison-and-final-holdout-results">Cross-validation comparison and final holdout results<a class="anchor-link" href="#Cross-validation-comparison-and-final-holdout-results">¶</a></h3>
+<h3 id="My-cross-validation-comparison-and-holdout-results">My cross-validation comparison and holdout results<a class="anchor-link" href="#My-cross-validation-comparison-and-holdout-results">¶</a></h3>
 </div>
 </div>
 </div>
@@ -9718,14 +9718,14 @@ weighted avg       0.89      0.84      0.85       787
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">test</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s2">"test_metrics"</span><span class="p">]</span>
 <span class="n">tn</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">tp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="s2">"confusion_matrix"</span><span class="p">])</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
 <span class="n">display</span><span class="p">(</span><span class="n">Markdown</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s2">"**Selected release:** </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">'model_name'</span><span class="p">]</span><span class="si">}</span><span class="s2">; decision threshold **</span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">'threshold'</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">**. "</span>
-    <span class="sa">f</span><span class="s2">"On </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ytest</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> holdout customers: AP **</span><span class="si">{</span><span class="n">test</span><span class="p">[</span><span class="s1">'average_precision'</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">**, ROC AUC **</span><span class="si">{</span><span class="n">test</span><span class="p">[</span><span class="s1">'roc_auc'</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">**, "</span>
-    <span class="sa">f</span><span class="s2">"precision **</span><span class="si">{</span><span class="n">test</span><span class="p">[</span><span class="s1">'precision'</span><span class="p">]</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">**, recall **</span><span class="si">{</span><span class="n">test</span><span class="p">[</span><span class="s1">'recall'</span><span class="p">]</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">**, and F2 **</span><span class="si">{</span><span class="n">test</span><span class="p">[</span><span class="s1">'f2'</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">**. "</span>
-    <span class="sa">f</span><span class="s2">"The campaign would contact </span><span class="si">{</span><span class="n">tp</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">fp</span><span class="si">}</span><span class="s2"> customers, including </span><span class="si">{</span><span class="n">tp</span><span class="si">}</span><span class="s2"> actual buyers and </span><span class="si">{</span><span class="n">fp</span><span class="si">}</span><span class="s2"> nonbuyers, "</span>
-    <span class="sa">f</span><span class="s2">"while missing </span><span class="si">{</span><span class="n">fn</span><span class="si">}</span><span class="s2"> buyers. The threshold therefore trades additional contacts for buyer coverage. "</span>
-    <span class="sa">f</span><span class="s2">"The mean training-CV AP (</span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">'best_cv_average_precision'</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">) is lower than this holdout AP; "</span>
-    <span class="s2">"the difference is material and this single random split does not establish stable future performance. "</span>
-    <span class="s2">"Validate on later customer cohorts before using the model for a live campaign."</span>
+    <span class="sa">f</span><span class="s2">"**My local model assessment:** I selected </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">'model_name'</span><span class="p">]</span><span class="si">}</span><span class="s2"> with a threshold of "</span>
+    <span class="sa">f</span><span class="s2">"**</span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">'threshold'</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">**. On </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ytest</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> holdout customers, I obtained AP "</span>
+    <span class="sa">f</span><span class="s2">"**</span><span class="si">{</span><span class="n">test</span><span class="p">[</span><span class="s1">'average_precision'</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">**, ROC AUC **</span><span class="si">{</span><span class="n">test</span><span class="p">[</span><span class="s1">'roc_auc'</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">**, precision "</span>
+    <span class="sa">f</span><span class="s2">"**</span><span class="si">{</span><span class="n">test</span><span class="p">[</span><span class="s1">'precision'</span><span class="p">]</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">**, recall **</span><span class="si">{</span><span class="n">test</span><span class="p">[</span><span class="s1">'recall'</span><span class="p">]</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">**, and F2 **</span><span class="si">{</span><span class="n">test</span><span class="p">[</span><span class="s1">'f2'</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">**. "</span>
+    <span class="sa">f</span><span class="s2">"At this threshold, I would contact </span><span class="si">{</span><span class="n">tp</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">fp</span><span class="si">}</span><span class="s2"> customers, including </span><span class="si">{</span><span class="n">tp</span><span class="si">}</span><span class="s2"> buyers and </span><span class="si">{</span><span class="n">fp</span><span class="si">}</span><span class="s2"> nonbuyers, "</span>
+    <span class="sa">f</span><span class="s2">"while missing </span><span class="si">{</span><span class="n">fn</span><span class="si">}</span><span class="s2"> buyers. I accept the additional contacts as a tradeoff for greater buyer coverage. "</span>
+    <span class="sa">f</span><span class="s2">"I also note that my training-CV AP (</span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">'best_cv_average_precision'</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">) is lower than my holdout AP. "</span>
+    <span class="s2">"I regard this difference as a reason to validate on later customer cohorts before drawing conclusions about future performance."</span>
 <span class="p">))</span>
 </pre></div>
 </div>
@@ -9739,7 +9739,7 @@ weighted avg       0.89      0.84      0.85       787
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-OutputArea-output" data-mime-type="text/markdown" tabindex="0">
-<p><strong>Selected release:</strong> Random Forest; decision threshold <strong>0.185</strong>. On 787 holdout customers: AP <strong>0.796</strong>, ROC AUC <strong>0.930</strong>, precision <strong>54.9%</strong>, recall <strong>92.2%</strong>, and F2 <strong>0.811</strong>. The campaign would contact 257 customers, including 141 actual buyers and 116 nonbuyers, while missing 12 buyers. The threshold therefore trades additional contacts for buyer coverage. The mean training-CV AP (0.647) is lower than this holdout AP; the difference is material and this single random split does not establish stable future performance. Validate on later customer cohorts before using the model for a live campaign.</p>
+<p><strong>My local model assessment:</strong> I selected Random Forest with a threshold of <strong>0.185</strong>. On 787 holdout customers, I obtained AP <strong>0.796</strong>, ROC AUC <strong>0.930</strong>, precision <strong>54.9%</strong>, recall <strong>92.2%</strong>, and F2 <strong>0.811</strong>. At this threshold, I would contact 257 customers, including 141 buyers and 116 nonbuyers, while missing 12 buyers. I accept the additional contacts as a tradeoff for greater buyer coverage. I also note that my training-CV AP (0.647) is lower than my holdout AP. I regard this difference as a reason to validate on later customer cohorts before drawing conclusions about future performance.</p>
 </div>
 </div>
 </div>
@@ -9751,7 +9751,7 @@ weighted avg       0.89      0.84      0.85       787
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Limited-budget-targeting-and-descriptive-feature-importance">Limited-budget targeting and descriptive feature importance<a class="anchor-link" href="#Limited-budget-targeting-and-descriptive-feature-importance">¶</a></h3><p>Rank by score when a campaign budget fixes how many people can be contacted. The top-20% fraction is a reporting scenario specified in advance, not a test-optimized threshold. Test-set permutation importance below explains the evaluated release; it is not fed back into model or feature selection.</p>
+<h3 id="My-limited-budget-targeting-analysis-and-feature-importance">My limited-budget targeting analysis and feature importance<a class="anchor-link" href="#My-limited-budget-targeting-analysis-and-feature-importance">¶</a></h3><p>I evaluated the highest-scored 20% as a predefined campaign-budget scenario. I did not select that fraction by optimizing test performance. I used test-set permutation importance to explain the evaluated model and did not feed those results back into feature selection or tuning.</p>
 </div>
 </div>
 </div>
@@ -9768,11 +9768,11 @@ weighted avg       0.89      0.84      0.85       787
 <span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">REPORTS</span> <span class="o">/</span> <span class="s2">"figures/feature_importance.png"</span><span class="p">)))</span>
 <span class="n">top_n</span> <span class="o">=</span> <span class="n">test</span><span class="p">[</span><span class="s2">"top_20_percent_customers"</span><span class="p">]</span>
 <span class="n">display</span><span class="p">(</span><span class="n">Markdown</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s2">"Contacting the top **</span><span class="si">{</span><span class="n">top_n</span><span class="si">}</span><span class="s2">** customers (approximately 20% of this holdout) yields "</span>
-    <span class="sa">f</span><span class="s2">"historical precision **</span><span class="si">{</span><span class="n">test</span><span class="p">[</span><span class="s1">'precision_at_top_20_percent'</span><span class="p">]</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">**, compared with "</span>
-    <span class="sa">f</span><span class="s2">"the holdout purchase prevalence of **</span><span class="si">{</span><span class="n">test</span><span class="p">[</span><span class="s1">'purchase_rate'</span><span class="p">]</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">**: "</span>
-    <span class="sa">f</span><span class="s2">"an observed lift of **</span><span class="si">{</span><span class="n">test</span><span class="p">[</span><span class="s1">'lift_at_top_20_percent'</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">×**. "</span>
-    <span class="s2">"This is retrospective ranking lift, not proof that contacting those people causes purchases."</span>
+    <span class="sa">f</span><span class="s2">"**My campaign-budget observation:** When I rank the holdout customers and select the top **</span><span class="si">{</span><span class="n">top_n</span><span class="si">}</span><span class="s2">** "</span>
+    <span class="sa">f</span><span class="s2">"(approximately 20%), I obtain historical precision of **</span><span class="si">{</span><span class="n">test</span><span class="p">[</span><span class="s1">'precision_at_top_20_percent'</span><span class="p">]</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">**, "</span>
+    <span class="sa">f</span><span class="s2">"compared with purchase prevalence of **</span><span class="si">{</span><span class="n">test</span><span class="p">[</span><span class="s1">'purchase_rate'</span><span class="p">]</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">**. "</span>
+    <span class="sa">f</span><span class="s2">"I calculate retrospective lift of **</span><span class="si">{</span><span class="n">test</span><span class="p">[</span><span class="s1">'lift_at_top_20_percent'</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">×**. "</span>
+    <span class="s2">"I interpret this as ranking performance and would use a campaign experiment to assess whether outreach causes additional purchases."</span>
 <span class="p">))</span>
 </pre></div>
 </div>
@@ -9902,7 +9902,7 @@ weighted avg       0.89      0.84      0.85       787
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-OutputArea-output" data-mime-type="text/markdown" tabindex="0">
-<p>Contacting the top <strong>158</strong> customers (approximately 20% of this holdout) yields historical precision <strong>72.2%</strong>, compared with the holdout purchase prevalence of <strong>19.4%</strong>: an observed lift of <strong>3.71×</strong>. This is retrospective ranking lift, not proof that contacting those people causes purchases.</p>
+<p><strong>My campaign-budget observation:</strong> When I rank the holdout customers and select the top <strong>158</strong> (approximately 20%), I obtain historical precision of <strong>72.2%</strong>, compared with purchase prevalence of <strong>19.4%</strong>. I calculate retrospective lift of <strong>3.71×</strong>. I interpret this as ranking performance and would use a campaign experiment to assess whether outreach causes additional purchases.</p>
 </div>
 </div>
 </div>
@@ -9914,7 +9914,7 @@ weighted avg       0.89      0.84      0.85       787
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Inspect-the-actual-MLflow-experiment-records">Inspect the actual MLflow experiment records<a class="anchor-link" href="#Inspect-the-actual-MLflow-experiment-records">¶</a></h3>
+<h3 id="My-recorded-MLflow-experiments">My recorded MLflow experiments<a class="anchor-link" href="#My-recorded-MLflow-experiments">¶</a></h3>
 </div>
 </div>
 </div>
@@ -10135,8 +10135,8 @@ Tracked candidate runs: 20
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="7.-Streamlit-deployment-application-%C2%B7-rubric:-11-points">7. Streamlit deployment application · rubric: 11 points<a class="anchor-link" href="#7.-Streamlit-deployment-application-%C2%B7-rubric:-11-points">¶</a></h2><p>The app loads <code>model.joblib</code> beside <code>app.py</code>, caches the fitted pipeline, gathers the 13 customer inputs into an ordered dataframe, scores them, and compares the score to the <strong>same saved threshold</strong> used for evaluation. The score is uncalibrated and is labeled accordingly. Missing artifacts and invalid party compositions produce useful messages.</p>
-<p>The following cells recreate the actual app and dependency files. Locally launch it with <code>python -m streamlit run tourism_project/deployment/app.py</code>. The app is now hosted at the public Streamlit link in Section 9; the source and dependency cells below reproduce its serving code.</p>
+<h2 id="7.-Streamlit-deployment-application-%C2%B7-rubric:-11-points">7. Streamlit deployment application · rubric: 11 points<a class="anchor-link" href="#7.-Streamlit-deployment-application-%C2%B7-rubric:-11-points">¶</a></h2><p>I created a Streamlit app that loads the cached <code>model.joblib</code> beside <code>app.py</code>, collects the 13 customer inputs into an ordered dataframe, and compares the model score with the saved decision threshold. I label the score as uncalibrated and handle missing model files and invalid party compositions with clear messages.</p>
+<p>I deployed the app on Streamlit Community Cloud. I include its source and dependencies below, and provide my public app link and prediction screenshot in Section 9. For local use, I launch it with <code>python -m streamlit run tourism_project/deployment/app.py</code>.</p>
 </div>
 </div>
 </div>
@@ -10519,14 +10519,14 @@ Decision: Prioritize for outreach
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="8.-MLOps-pipeline-with-GitHub-Actions-%C2%B7-rubric:-16-points">8. MLOps pipeline with GitHub Actions · rubric: 16 points<a class="anchor-link" href="#8.-MLOps-pipeline-with-GitHub-Actions-%C2%B7-rubric:-16-points">¶</a></h2><p>The workflow is at repository-root <code>.github/workflows/pipeline.yml</code>. The first three jobs implement the template's registration → preparation → training chain. They transfer data through artifacts instead of relying on another runner's local files. A separate publication job gives only that job write permission.</p>
+<h2 id="8.-MLOps-pipeline-with-GitHub-Actions-%C2%B7-rubric:-16-points">8. MLOps pipeline with GitHub Actions · rubric: 16 points<a class="anchor-link" href="#8.-MLOps-pipeline-with-GitHub-Actions-%C2%B7-rubric:-16-points">¶</a></h2><p>I placed my workflow at repository-root <code>.github/workflows/pipeline.yml</code>. I use registration, preparation, and training jobs to pass data through workflow artifacts. I give write permission only to a separate publication job.</p>
 <ol>
-<li><strong>Register:</strong> validate <code>tourism_project/data/tourism.csv</code>, write the summary, upload the registered-data artifact.</li>
-<li><strong>Prepare:</strong> download registered data, clean and split it, upload checksummed data-splits.</li>
-<li><strong>Train and test:</strong> download the splits, tune/log/evaluate, run the tests, upload the tested deployment and MLflow records.</li>
-<li><strong>Publish:</strong> only on <code>main</code> after success, verify that <code>main</code> is still the source revision, commit the fitted model and reports with <code>[skip ci]</code>, and push without force. Pull requests cannot publish.</li>
+<li><strong>Registration:</strong> I validate the CSV, record its summary, and upload the registered dataset.</li>
+<li><strong>Preparation:</strong> I download the registered input, clean and split it, and upload the checksummed splits.</li>
+<li><strong>Training and testing:</strong> I download those splits, tune and track the model, evaluate it, run the checks, and upload the tested model and experiment records.</li>
+<li><strong>Publication:</strong> I verify that <code>main</code> still matches the training revision before committing the model and reports with <code>[skip ci]</code>. I prevent pull requests from publishing and avoid force-pushing over newer work.</li>
 </ol>
-<p>The workflow automates repository model updates. It does not create a Streamlit account or connect a new app. After that one-time connection, the hosted app picks up the model commit.</p>
+<p>I connected the repository to Streamlit Community Cloud so the app can load the model committed by my workflow.</p>
 </div>
 </div>
 </div>
@@ -10879,7 +10879,7 @@ Decision: Prioritize for outreach
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Meaningful-verification:-contract,-isolation,-saved-inference,-and-frontend-behavior">Meaningful verification: contract, isolation, saved inference, and frontend behavior<a class="anchor-link" href="#Meaningful-verification:-contract,-isolation,-saved-inference,-and-frontend-behavior">¶</a></h3>
+<h3 id="My-verification-checks">My verification checks<a class="anchor-link" href="#My-verification-checks">¶</a></h3><p>I checked the data contract, separation of training and testing profiles, saved-model inference, and frontend behavior.</p>
 </div>
 </div>
 </div>
@@ -11305,13 +11305,13 @@ Original GitHub runner test result:
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="9.-Output-evaluation-and-public-deployment-evidence-%C2%B7-rubric:-4-points">9. Output evaluation and public deployment evidence · rubric: 4 points<a class="anchor-link" href="#9.-Output-evaluation-and-public-deployment-evidence-%C2%B7-rubric:-4-points">¶</a></h2><p>The project is public on GitHub and Streamlit Community Cloud. GitHub Actions run <strong>#1</strong> completed successfully on <strong>November 24, 2026 at 9:07 a.m. America/Chicago</strong>, with all four jobs successful. Registration and split artifacts were uploaded/downloaded, training and tests passed, and the bot committed the fitted model to <code>main</code>.</p>
-<p><strong>Training source:</strong> <code>62715eb35bf9746673cb0723318dd63591d5576b</code>.
-<strong>Published model commit:</strong> <a href="https://github.com/dassubhojit-web/tourism-package-prediction/commit/8a31082862dcd4c81f7ba3ad6baeede5bd1eb8fe"><code>8a31082862dcd4c81f7ba3ad6baeede5bd1eb8fe</code></a>.
-<strong>MLflow parent run:</strong> <code>9c74a6d5940f4b918cff3a871e5898a7</code>.</p>
-<p>The workflow preserved four artifacts: <code>registered-data</code>, <code>data-splits</code>, <code>trained-deployment</code>, and <code>mlflow-experiments</code>. Their IDs, digests, and successful job steps are recorded in <code>evidence/github_verification.json</code>. Artifact downloads remain subject to GitHub retention limits; the source, serving model, and reports are committed to the repository.</p>
-<p>The following cell shows the actual canonical links, compares the original local results with the GitHub-trained deployed release, and embeds genuine browser screenshots. The public app was checked in an anonymous browser context using the form's synthetic default profile. The page URL and observed outcome are recorded in <code>evidence/browser_verification.json</code>.</p>
-<p>The two trained artifacts produce slightly different holdout metrics. No outputs have been relabeled as if they came from another run. The deployed-release column below is authoritative for the live app. No additional tuning was performed using these test results.</p>
+<h2 id="9.-Output-evaluation-and-public-deployment-evidence-%C2%B7-rubric:-4-points">9. Output evaluation and public deployment evidence · rubric: 4 points<a class="anchor-link" href="#9.-Output-evaluation-and-public-deployment-evidence-%C2%B7-rubric:-4-points">¶</a></h2><p>I published my repository on GitHub and deployed my app on Streamlit Community Cloud. My first GitHub Actions run completed successfully on <strong>November 24, 2026 at 9:07 a.m. America/Chicago</strong>, with all four jobs passing. I verified the artifact handoffs, training results, tests, and automatic model commit to <code>main</code>.</p>
+<p><strong>My training source:</strong> <code>62715eb35bf9746673cb0723318dd63591d5576b</code>.
+<strong>My published model commit:</strong> <a href="https://github.com/dassubhojit-web/tourism-package-prediction/commit/8a31082862dcd4c81f7ba3ad6baeede5bd1eb8fe"><code>8a31082862dcd4c81f7ba3ad6baeede5bd1eb8fe</code></a>.
+<strong>My MLflow parent run:</strong> <code>9c74a6d5940f4b918cff3a871e5898a7</code>.</p>
+<p>My workflow saved <code>registered-data</code>, <code>data-splits</code>, <code>trained-deployment</code>, and <code>mlflow-experiments</code>. I recorded the artifact identifiers, digests, and job statuses in <code>evidence/github_verification.json</code>. The source, serving model, and reports are committed to my repository; workflow downloads remain subject to GitHub retention limits.</p>
+<p>I checked my public app without signing in and submitted the form's sample profile. I recorded the page URL and prediction in <code>evidence/browser_verification.json</code> and included the screenshots below.</p>
+<p>I show my local and GitHub-trained results separately because they are different fitted models. I use the deployed-release column when describing my live app and did not perform further tuning on the test results.</p>
 </div>
 </div>
 </div>
@@ -11560,7 +11560,7 @@ weighted avg       0.90      0.85      0.86       787
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="10.-Conclusions-and-actionable-recommendations">10. Conclusions and actionable recommendations<a class="anchor-link" href="#10.-Conclusions-and-actionable-recommendations">¶</a></h2><p>The validated pipeline has run on GitHub, automatically committed its tested model to <code>main</code>, and supplied the model now served by the public Streamlit app. The final conclusions below use the deployed release; the original local training evidence is preserved in the earlier sections.</p>
+<h2 id="10.-My-conclusions-and-recommendations">10. My conclusions and recommendations<a class="anchor-link" href="#10.-My-conclusions-and-recommendations">¶</a></h2><p>I completed the GitHub workflow, automatically committed the tested model to <code>main</code>, and deployed it through my public Streamlit app. I base my final conclusions on that deployed release while retaining my local training outputs earlier in this report.</p>
 </div>
 </div>
 </div>
@@ -11585,22 +11585,22 @@ weighted avg       0.90      0.85      0.86       787
 <span class="n">top_features</span> <span class="o">=</span> <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">importance</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)[</span><span class="s2">"feature"</span><span class="p">])</span>
 <span class="n">tn</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">tp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="s2">"confusion_matrix"</span><span class="p">])</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
 <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="sa">f</span><span class="s2">"1. **Deployed model:** </span><span class="si">{</span><span class="n">release</span><span class="p">[</span><span class="s1">'model_name'</span><span class="p">]</span><span class="si">}</span><span class="s2"> selected from 20 training-CV configurations; "</span>
-    <span class="sa">f</span><span class="s2">"holdout AP **</span><span class="si">{</span><span class="n">test</span><span class="p">[</span><span class="s1">'average_precision'</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">**, ROC AUC **</span><span class="si">{</span><span class="n">test</span><span class="p">[</span><span class="s1">'roc_auc'</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">**, "</span>
-    <span class="sa">f</span><span class="s2">"and accuracy **</span><span class="si">{</span><span class="n">test</span><span class="p">[</span><span class="s1">'accuracy'</span><span class="p">]</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">**."</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">"2. **Recall-focused outreach:** threshold **</span><span class="si">{</span><span class="n">release</span><span class="p">[</span><span class="s1">'threshold'</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">** gives recall "</span>
+    <span class="sa">f</span><span class="s2">"1. **My selected model:** I selected </span><span class="si">{</span><span class="n">release</span><span class="p">[</span><span class="s1">'model_name'</span><span class="p">]</span><span class="si">}</span><span class="s2"> from 20 training-CV configurations. "</span>
+    <span class="sa">f</span><span class="s2">"My deployed release achieved holdout AP **</span><span class="si">{</span><span class="n">test</span><span class="p">[</span><span class="s1">'average_precision'</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">**, ROC AUC "</span>
+    <span class="sa">f</span><span class="s2">"**</span><span class="si">{</span><span class="n">test</span><span class="p">[</span><span class="s1">'roc_auc'</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">**, and accuracy **</span><span class="si">{</span><span class="n">test</span><span class="p">[</span><span class="s1">'accuracy'</span><span class="p">]</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">**."</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s2">"2. **My outreach decision:** I used threshold **</span><span class="si">{</span><span class="n">release</span><span class="p">[</span><span class="s1">'threshold'</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">**, obtaining recall "</span>
     <span class="sa">f</span><span class="s2">"**</span><span class="si">{</span><span class="n">test</span><span class="p">[</span><span class="s1">'recall'</span><span class="p">]</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">** and precision **</span><span class="si">{</span><span class="n">test</span><span class="p">[</span><span class="s1">'precision'</span><span class="p">]</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">**. "</span>
-    <span class="sa">f</span><span class="s2">"The holdout decisions identify </span><span class="si">{</span><span class="n">tp</span><span class="si">}</span><span class="s2"> buyers, miss </span><span class="si">{</span><span class="n">fn</span><span class="si">}</span><span class="s2">, and contact </span><span class="si">{</span><span class="n">fp</span><span class="si">}</span><span class="s2"> nonbuyers. "</span>
-    <span class="s2">"Replace F2 with an economic objective when contact costs and margins are available."</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">"3. **Budget scenario:** the top </span><span class="si">{</span><span class="n">test</span><span class="p">[</span><span class="s1">'top_20_percent_customers'</span><span class="p">]</span><span class="si">}</span><span class="s2"> scored customers give "</span>
-    <span class="sa">f</span><span class="s2">"**</span><span class="si">{</span><span class="n">test</span><span class="p">[</span><span class="s1">'precision_at_top_20_percent'</span><span class="p">]</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">** retrospective precision and "</span>
-    <span class="sa">f</span><span class="s2">"**</span><span class="si">{</span><span class="n">test</span><span class="p">[</span><span class="s1">'lift_at_top_20_percent'</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">×** lift. Pilot the ranking against a randomized "</span>
-    <span class="s2">"or current targeting strategy to estimate incremental conversion."</span><span class="p">,</span>
-    <span class="sa">f</span><span class="s2">"4. **Observed drivers:** </span><span class="si">{</span><span class="n">top_features</span><span class="si">}</span><span class="s2"> have the largest descriptive AP decreases. "</span>
-    <span class="s2">"These are predictive associations, not evidence of causality."</span><span class="p">,</span>
-    <span class="s2">"5. **Published delivery:** the GitHub repository, successful four-job workflow, automatic model "</span>
-    <span class="s2">"commit, public Streamlit prediction, and genuine screenshots are documented in Section 9. "</span>
-    <span class="s2">"The final notebook and HTML contain the original execution history and the deployed-release evidence."</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s2">"I identified </span><span class="si">{</span><span class="n">tp</span><span class="si">}</span><span class="s2"> buyers, missed </span><span class="si">{</span><span class="n">fn</span><span class="si">}</span><span class="s2">, and selected </span><span class="si">{</span><span class="n">fp</span><span class="si">}</span><span class="s2"> nonbuyers for contact. "</span>
+    <span class="s2">"I would replace F2 with an economic objective once contact costs and margins are available."</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s2">"3. **My budget scenario:** Selecting the top </span><span class="si">{</span><span class="n">test</span><span class="p">[</span><span class="s1">'top_20_percent_customers'</span><span class="p">]</span><span class="si">}</span><span class="s2"> customers gave me "</span>
+    <span class="sa">f</span><span class="s2">"retrospective precision of **</span><span class="si">{</span><span class="n">test</span><span class="p">[</span><span class="s1">'precision_at_top_20_percent'</span><span class="p">]</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">** and lift of "</span>
+    <span class="sa">f</span><span class="s2">"**</span><span class="si">{</span><span class="n">test</span><span class="p">[</span><span class="s1">'lift_at_top_20_percent'</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">×**. I recommend a pilot against randomized or current targeting "</span>
+    <span class="s2">"to estimate incremental conversion."</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s2">"4. **My interpretation of predictors:** I observed the largest descriptive AP decreases for "</span>
+    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">top_features</span><span class="si">}</span><span class="s2">. I interpret these as predictive associations rather than causal explanations."</span><span class="p">,</span>
+    <span class="s2">"5. **My deployment outcome:** I published the repository, completed the four-job workflow, "</span>
+    <span class="s2">"automated the model commit, and deployed the Streamlit app. I included the public links and "</span>
+    <span class="s2">"screenshots in Section 9 and retained both my local execution history and deployed-release results."</span><span class="p">,</span>
 <span class="p">]</span>
 <span class="n">display</span><span class="p">(</span><span class="n">Markdown</span><span class="p">(</span><span class="s2">"</span><span class="se">\n\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)))</span>
 </pre></div>
@@ -11616,15 +11616,15 @@ weighted avg       0.90      0.85      0.86       787
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-OutputArea-output" data-mime-type="text/markdown" tabindex="0">
 <ol>
-<li><p><strong>Deployed model:</strong> Random Forest selected from 20 training-CV configurations; holdout AP <strong>0.801</strong>, ROC AUC <strong>0.930</strong>, and accuracy <strong>84.9%</strong>.</p>
+<li><p><strong>My selected model:</strong> I selected Random Forest from 20 training-CV configurations. My deployed release achieved holdout AP <strong>0.801</strong>, ROC AUC <strong>0.930</strong>, and accuracy <strong>84.9%</strong>.</p>
 </li>
-<li><p><strong>Recall-focused outreach:</strong> threshold <strong>0.185</strong> gives recall <strong>92.8%</strong> and precision <strong>56.8%</strong>. The holdout decisions identify 142 buyers, miss 11, and contact 108 nonbuyers. Replace F2 with an economic objective when contact costs and margins are available.</p>
+<li><p><strong>My outreach decision:</strong> I used threshold <strong>0.185</strong>, obtaining recall <strong>92.8%</strong> and precision <strong>56.8%</strong>. I identified 142 buyers, missed 11, and selected 108 nonbuyers for contact. I would replace F2 with an economic objective once contact costs and margins are available.</p>
 </li>
-<li><p><strong>Budget scenario:</strong> the top 158 scored customers give <strong>72.8%</strong> retrospective precision and <strong>3.74×</strong> lift. Pilot the ranking against a randomized or current targeting strategy to estimate incremental conversion.</p>
+<li><p><strong>My budget scenario:</strong> Selecting the top 158 customers gave me retrospective precision of <strong>72.8%</strong> and lift of <strong>3.74×</strong>. I recommend a pilot against randomized or current targeting to estimate incremental conversion.</p>
 </li>
-<li><p><strong>Observed drivers:</strong> Passport, Designation, PreferredPropertyStar have the largest descriptive AP decreases. These are predictive associations, not evidence of causality.</p>
+<li><p><strong>My interpretation of predictors:</strong> I observed the largest descriptive AP decreases for Passport, Designation, PreferredPropertyStar. I interpret these as predictive associations rather than causal explanations.</p>
 </li>
-<li><p><strong>Published delivery:</strong> the GitHub repository, successful four-job workflow, automatic model commit, public Streamlit prediction, and genuine screenshots are documented in Section 9. The final notebook and HTML contain the original execution history and the deployed-release evidence.</p>
+<li><p><strong>My deployment outcome:</strong> I published the repository, completed the four-job workflow, automated the model commit, and deployed the Streamlit app. I included the public links and screenshots in Section 9 and retained both my local execution history and deployed-release results.</p>
 </li>
 </ol>
 </div>
@@ -11638,12 +11638,12 @@ weighted avg       0.90      0.85      0.86       787
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Limitations-and-operations-after-deployment">Limitations and operations after deployment<a class="anchor-link" href="#Limitations-and-operations-after-deployment">¶</a></h3><ul>
-<li><strong>Scope and proxy check:</strong> the data labels general historical package purchases rather than verified uptake of the new wellness offer. Confirm that every predictor is known before contact, especially designation and travel preferences. If designation was assigned from the pitched product, remove it and retrain.</li>
-<li><strong>Sampling:</strong> source profiles contain repetitions; deduplication prevents exact leakage but does not establish independence of similar customers. There are no trustworthy timestamps or outcome windows for a temporal backtest. The material CV/holdout difference warrants validation on later cohorts.</li>
-<li><strong>Scores and decisions:</strong> scores have not been calibrated as purchase probabilities. Evaluate calibration, actual conversion, precision, recall, contact cost, revenue, and feedback delay on a future campaign. Do not interpret retrospective ranking lift as causal uplift.</li>
-<li><strong>Fairness and drift:</strong> gender, age, and income may produce unequal outreach patterns. Audit group coverage and outcome metrics with adequate sample sizes, review whether those features are appropriate, and track missingness, unseen categories, feature distributions, and realized performance. Use a new validation cohort for subsequent changes rather than repeatedly tuning on this test set.</li>
-<li><strong>Operations:</strong> preserve the dataset hash, source revision, model version, and MLflow records; promote only a tested model, retain previous model commits for rollback, and retrain when new validated outcomes justify it. Automation alone does not establish model quality.</li>
+<h3 id="My-limitations-and-next-steps">My limitations and next steps<a class="anchor-link" href="#My-limitations-and-next-steps">¶</a></h3><ul>
+<li><strong>Prediction scope:</strong> I used historical package purchases rather than confirmed uptake of the new wellness offer. I would confirm that every predictor is available before contact, especially designation and travel preferences, and remove any field that fails this check.</li>
+<li><strong>Sampling:</strong> I removed repeated profiles to prevent exact overlap, but I cannot establish that similar customers are independent. I do not have reliable timestamps for a temporal backtest. I would evaluate the model on later cohorts because the CV and holdout results differ materially.</li>
+<li><strong>Scores and decisions:</strong> I have not calibrated the scores as purchase probabilities. I would monitor calibration, conversion, precision, recall, contact costs, revenue, and feedback delay. I would assess causal marketing impact through an experiment.</li>
+<li><strong>Fairness and drift:</strong> I would audit outreach coverage and outcomes across demographic groups, review whether sensitive predictors are appropriate, and monitor missingness, unseen categories, and feature distributions. I would use a new validation cohort for subsequent model changes.</li>
+<li><strong>Operations:</strong> I would retain dataset hashes, source revisions, model versions, and experiment records, promote only tested models, and keep previous model commits available for rollback. I would retrain when new validated outcomes justify an update.</li>
 </ul>
 <h3 id="Rubric-coverage">Rubric coverage<a class="anchor-link" href="#Rubric-coverage">¶</a></h3><table>
 <thead>
@@ -11691,14 +11691,6 @@ weighted avg       0.90      0.85      0.86       787
 </tr>
 </tbody>
 </table>
-<h3 id="References">References<a class="anchor-link" href="#References">¶</a></h3><p>Project structure: supplied <code>Project-DESC.txt</code>, learner template, and the latest Streamlit/GitHub Actions MLOps notebooks in <code>Examples</code>. The implementation and analysis in this notebook are tailored to the supplied tourism CSV.</p>
-<ul>
-<li><a href="https://scikit-learn.org/1.6/common_pitfalls.html">scikit-learn: preprocessing and leakage pitfalls</a></li>
-<li><a href="https://scikit-learn.org/1.6/modules/generated/sklearn.model_selection.GridSearchCV.html">scikit-learn: GridSearchCV</a></li>
-<li><a href="https://mlflow.org/docs/3.0.1/tracking/tracking-api/">MLflow 3.0.1 tracking API</a></li>
-<li><a href="https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts">GitHub Actions: storing and sharing workflow data</a></li>
-<li><a href="https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/deploy">Streamlit Community Cloud deployment</a></li>
-</ul>
 </div>
 </div>
 </div>

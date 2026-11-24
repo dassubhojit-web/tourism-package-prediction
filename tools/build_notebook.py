@@ -1,4 +1,4 @@
-"""Build the original, self-contained learner submission from the repository's actual source."""
+"""Build the project notebook from the repository's source files."""
 from pathlib import Path
 from textwrap import dedent
 
@@ -27,11 +27,13 @@ md("""
 # Tourism Package Prediction
 ### Visit with Us · Advanced Machine Learning and MLOps
 
-**Objective:** build a reproducible system to prioritize customers for a Wellness Tourism Package **before a sales conversation**.
+**Prepared by:** Subhojit Das
 
-This notebook follows the supplied learner template and the adjacent MLOps examples. It contains the complete project source, data validation and preparation, training with experiment tracking, evaluated predictions, a Streamlit frontend, and a GitHub Actions workflow. Run every cell from top to bottom; only the supplied `tourism.csv` and the Python dependencies are needed to reconstruct the local project.
+**Objective:** I aim to build a reproducible system to prioritize customers for a Wellness Tourism Package **before a sales conversation**.
 
-**Delivery status:** local training, saved model, notebook execution, and application tests are real. GitHub publication, a remote Actions run, and public Streamlit deployment are pending. No public links or remote screenshots are claimed.
+In this notebook, I document my data validation and preparation, model training with experiment tracking, evaluated predictions, Streamlit frontend, and GitHub Actions workflow. I can reproduce the local project by running the cells from top to bottom with `tourism.csv` and the required Python dependencies.
+
+**Delivery status:** I have completed local training, saved the model, executed the notebook, and checked the application. I will add the GitHub workflow and public Streamlit deployment evidence after publication.
 """)
 md("""
 ## 1. Business context and success criteria
@@ -71,7 +73,7 @@ Travel preferences, income, and designation are assumed available from an existi
 md("""
 ## 3. Environment and project configuration
 
-Training and serving use Python 3.12 with identical NumPy, pandas, scikit-learn, and joblib pins. MLflow writes to a local tracking directory; no token, ngrok tunnel, or tracking server is needed. The template and rubric specify Streamlit Community Cloud; that takes precedence over the older Hugging Face reference in the description.
+I use Python 3.12 for training and serving, with matching NumPy, pandas, scikit-learn, and joblib versions. I store my MLflow experiment records in a local tracking directory and use Streamlit Community Cloud to host the application.
 
 Run from this notebook's directory. In Colab, upload this notebook and `tourism.csv` to the same runtime directory, select Python 3.12 where available, and install the pinned packages before running the rest. If an existing runtime has already imported different package versions, restart it after installation.
 """)
@@ -156,10 +158,10 @@ display(raw.describe().round(2))
 """)
 code("""
 display(Markdown(
-    f"**Observed data:** {registration['rows']:,} rows and {registration['columns']} columns; "
-    f"{sum(registration['missing_values'].values())} missing cells; "
-    f"{registration['target_counts']['1']:,} buyers ({registration['purchase_rate']:.2%}). "
-    f"There are {registration['gender_spelling_corrections']} occurrences of `Fe Male`, "
+    f"**My data observations:** I found {registration['rows']:,} customer records and {registration['columns']} columns, "
+    f"with {sum(registration['missing_values'].values())} missing cells. "
+    f"I identified {registration['target_counts']['1']:,} buyers ({registration['purchase_rate']:.2%}). "
+    f"I also found {registration['gender_spelling_corrections']} occurrences of the spelling `Fe Male` "
     f"and {registration['duplicate_profiles_after_normalization']} repeated pre-contact profiles after normalization."
 ))
 display(raw.select_dtypes(include="object").nunique().rename("distinct categories").to_frame())
@@ -217,12 +219,12 @@ code("""
 passport_rates = eda.groupby("Passport")[TARGET].mean()
 designation_rates = eda.groupby("Designation")[TARGET].mean().sort_values(ascending=False)
 display(Markdown(
-    f"**Training observations:** passport holders purchased at {passport_rates.get(1, float('nan')):.1%}, "
-    f"compared with {passport_rates.get(0, float('nan')):.1%} for customers without one. "
-    f"The highest observed designation purchase rate is {designation_rates.index[0]} "
-    f"({designation_rates.iloc[0]:.1%}). Groups differ in size, so rates alone are not reliable targeting rules. "
-    "The low purchase prevalence motivates precision–recall evaluation and a majority-class baseline. "
-    "The income extremes are retained, and no imputation or clipping statistics are fitted on the full dataset."
+    f"**My training observations:** I observed a purchase rate of {passport_rates.get(1, float('nan')):.1%} "
+    f"among passport holders and {passport_rates.get(0, float('nan')):.1%} among customers without one. "
+    f"I found the highest designation purchase rate for {designation_rates.index[0]} "
+    f"({designation_rates.iloc[0]:.1%}). Because group sizes differ, I do not use these rates alone as targeting rules. "
+    "I use precision–recall evaluation and a majority-class baseline because purchases are relatively uncommon. "
+    "I retained the income extremes and avoided fitting imputation or clipping statistics on the full dataset."
 ))
 """)
 md("""
@@ -260,14 +262,14 @@ code("""
 test = results["test_metrics"]
 tn, fp, fn, tp = np.asarray(test["confusion_matrix"]).ravel()
 display(Markdown(
-    f"**Selected release:** {results['model_name']}; decision threshold **{results['threshold']:.3f}**. "
-    f"On {len(ytest):,} holdout customers: AP **{test['average_precision']:.3f}**, ROC AUC **{test['roc_auc']:.3f}**, "
+    f"**My selected model:** I selected {results['model_name']} with a decision threshold of **{results['threshold']:.3f}**. "
+    f"On {len(ytest):,} holdout customers, I obtained AP **{test['average_precision']:.3f}**, ROC AUC **{test['roc_auc']:.3f}**, "
     f"precision **{test['precision']:.1%}**, recall **{test['recall']:.1%}**, and F2 **{test['f2']:.3f}**. "
-    f"The campaign would contact {tp + fp} customers, including {tp} actual buyers and {fp} nonbuyers, "
-    f"while missing {fn} buyers. The threshold therefore trades additional contacts for buyer coverage. "
-    f"The mean training-CV AP ({results['best_cv_average_precision']:.3f}) is lower than this holdout AP; "
-    "the difference is material and this single random split does not establish stable future performance. "
-    "Validate on later customer cohorts before using the model for a live campaign."
+    f"With this threshold, I would contact {tp + fp} customers, including {tp} actual buyers and {fp} nonbuyers, "
+    f"while missing {fn} buyers. I accept additional contacts to improve buyer coverage. "
+    f"I found that mean training-CV AP ({results['best_cv_average_precision']:.3f}) is lower than holdout AP. "
+    "I consider this difference material, so I would validate performance on later customer cohorts "
+    "before relying on the model for a live campaign."
 ))
 """)
 md("### Limited-budget targeting and descriptive feature importance\nRank by score when a campaign budget fixes how many people can be contacted. The top-20% fraction is a reporting scenario specified in advance, not a test-optimized threshold. Test-set permutation importance below explains the evaluated release; it is not fed back into model or feature selection.")
@@ -277,11 +279,11 @@ display(importance.round(4))
 display(Image(filename=str(REPORTS / "figures/feature_importance.png")))
 top_n = test["top_20_percent_customers"]
 display(Markdown(
-    f"Contacting the top **{top_n}** customers (approximately 20% of this holdout) yields "
-    f"historical precision **{test['precision_at_top_20_percent']:.1%}**, compared with "
-    f"the holdout purchase prevalence of **{test['purchase_rate']:.1%}**: "
-    f"an observed lift of **{test['lift_at_top_20_percent']:.2f}×**. "
-    "This is retrospective ranking lift, not proof that contacting those people causes purchases."
+    f"If I contact the top **{top_n}** customers (approximately 20% of this holdout), I obtain "
+    f"historical precision of **{test['precision_at_top_20_percent']:.1%}**, compared with "
+    f"the holdout purchase prevalence of **{test['purchase_rate']:.1%}**. "
+    f"I observed a lift of **{test['lift_at_top_20_percent']:.2f}×**. "
+    "I interpret this as retrospective ranking performance and would use a campaign experiment to assess incremental purchases."
 ))
 """)
 md("### Inspect the actual MLflow experiment records")
@@ -319,7 +321,7 @@ print("Decision:", "Prioritize for outreach" if score >= payload["threshold"] el
 md("""
 ## 8. MLOps pipeline with GitHub Actions · rubric: 16 points
 
-The workflow is at repository-root `.github/workflows/pipeline.yml`. The first three jobs implement the template's registration → preparation → training chain. They transfer data through artifacts instead of relying on another runner's local files. A separate publication job gives only that job write permission.
+I defined the workflow at repository-root `.github/workflows/pipeline.yml`. I organized the first three jobs as registration → preparation → training and passed data between them through artifacts. I gave repository write permission only to the separate model-publication job.
 
 1. **Register:** validate `tourism_project/data/tourism.csv`, write the summary, upload the registered-data artifact.
 2. **Prepare:** download registered data, clean and split it, upload checksummed data-splits.
@@ -399,17 +401,17 @@ The project replaces manual profile handling with a validated, repeatable workfl
 code("""
 top_features = ", ".join(importance.head(3)["feature"])
 display(Markdown(
-    f"1. **Model:** {results['model_name']} is the training-CV winner among 20 configurations. "
-    f"Its holdout AP is {test['average_precision']:.3f} and ROC AUC is {test['roc_auc']:.3f}.\\n\\n"
-    f"2. **Recall-focused outreach:** at threshold {results['threshold']:.3f}, recall is {test['recall']:.1%} "
-    f"and precision is {test['precision']:.1%}. Expect unnecessary contacts alongside improved buyer coverage; "
-    "replace F2 with an economic objective when contact costs and package margins are known.\\n"
-    f"3. **Budget scenario:** the top 20% scores give {test['lift_at_top_20_percent']:.2f}× retrospective lift. "
-    "Pilot this ranking against randomized or current targeting to estimate incremental conversion.\\n"
-    f"4. **Observed drivers:** the largest descriptive AP decreases came from {top_features}. "
-    "These are predictive associations, not reasons to infer causality.\\n"
-    "5. **Deployment:** publish this prepared repository, execute the Actions workflow, connect Streamlit Cloud, "
-    "and add the authentic public evidence before submitting the HTML."
+    f"1. **My model selection:** I selected {results['model_name']} from 20 training-CV configurations. "
+    f"I obtained holdout AP of {test['average_precision']:.3f} and ROC AUC of {test['roc_auc']:.3f}.\\n\\n"
+    f"2. **My outreach decision:** I chose threshold {results['threshold']:.3f}, giving recall of {test['recall']:.1%} "
+    f"and precision of {test['precision']:.1%}. I accept some unnecessary contacts to improve buyer coverage, "
+    "and I would replace F2 with an economic objective when contact costs and package margins are available.\\n"
+    f"3. **My budget scenario:** I observed {test['lift_at_top_20_percent']:.2f}× retrospective lift among the top 20% scores. "
+    "I would pilot this ranking against randomized or current targeting to estimate incremental conversion.\\n"
+    f"4. **My feature observations:** I found the largest descriptive AP decreases for {top_features}. "
+    "I interpret these as predictive associations rather than causal effects.\\n"
+    "5. **My deployment plan:** I will publish the repository, execute the Actions workflow, connect Streamlit Cloud, "
+    "and add the public deployment evidence before submitting my HTML report."
 ))
 """)
 md("""
@@ -433,15 +435,6 @@ md("""
 | Output evaluation · 4 | Genuine repository/workflow/public-app URLs and screenshots | Pending publication |
 | Notebook quality · 6 | Sequential executed outputs, observations, source, no error outputs, HTML | Executed and exported |
 
-### References
-
-Project structure: supplied `Project-DESC.txt`, learner template, and the latest Streamlit/GitHub Actions MLOps notebooks in `Examples`. The implementation and analysis in this notebook are tailored to the supplied tourism CSV.
-
-- [scikit-learn: preprocessing and leakage pitfalls](https://scikit-learn.org/1.6/common_pitfalls.html)
-- [scikit-learn: GridSearchCV](https://scikit-learn.org/1.6/modules/generated/sklearn.model_selection.GridSearchCV.html)
-- [MLflow 3.0.1 tracking API](https://mlflow.org/docs/3.0.1/tracking/tracking-api/)
-- [GitHub Actions: storing and sharing workflow data](https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts)
-- [Streamlit Community Cloud deployment](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/deploy)
 """)
 
 notebook = nbf.v4.new_notebook(cells=cells)

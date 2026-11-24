@@ -10,6 +10,7 @@ from textwrap import dedent
 
 import nbformat
 from nbclient import NotebookClient
+from author_report import personalize_notebook, refresh_observations
 
 ROOT = Path(__file__).resolve().parents[1]
 NOTEBOOK = ROOT / "Tourism_Package_Prediction_Completed.ipynb"
@@ -203,6 +204,8 @@ def main():
         "original_training_outputs_preserved": True,
         "report_only_cells_refreshed": changed,
     }
+    personalize_notebook(notebook)
+    refresh_observations(notebook)
     nbformat.validate(notebook)
     nbformat.write(notebook, NOTEBOOK)
     print(f"Updated {NOTEBOOK.name}; original training outputs preserved, publication evidence executed.")
